@@ -1,0 +1,40 @@
+<div>
+  <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+  <form
+    #createDashboardForm="ngForm"
+    (ngSubmit)="onSubmit(createDashboardForm)"
+    class="dashboard-create-form">
+    <div class="create-error" *ngIf="error">
+      <p>{{ error }}</p>
+    </div>
+    <div class="create-message" *ngIf="message">
+      <p>{{ message }}</p>
+    </div>
+    <div class="dashboard-create-inputs">
+      <label for="name">Name</label>
+      <input
+          type="text"
+          id="name"
+          ngModel
+          #nameInput
+          name="name"
+          required
+          #dashboardName="ngModel">
+      <span *ngIf="!dashboardName.valid && dashboardName.touched" class="input-error">Input name please</span>
+    </div>
+    <div class="dashboard-create-inputs">
+        <label for="description">Description</label>
+        <textarea
+            type="text"
+            id="description"
+            ngModel
+            name="description"
+            required
+            #dashboardDescr="ngModel"></textarea>
+        <span *ngIf="!dashboardDescr.valid && dashboardDescr.touched" class="input-error">Input description please</span>
+    </div>
+    <button
+      class="btn create-dashboard"
+      [disabled]="!createDashboardForm.valid">Create</button>
+  </form>
+</div>

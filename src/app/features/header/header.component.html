@@ -1,0 +1,20 @@
+<div class="container">
+  <header class="header">
+    <nav class="navbar">
+      <div class="navbar-logo">
+        <a routerLink="/">Dashboards</a>
+      </div>
+    
+      <div class="navbar-tabs">    
+        <ul class="navbar-info" *ngIf="isAuthenticated">
+          <li class="info-text">
+            <a routerLink="user">Hello, {{ username }}!</a>
+          </li>
+          <li class="logout">
+            <a (click)="onLogout()">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+</div>

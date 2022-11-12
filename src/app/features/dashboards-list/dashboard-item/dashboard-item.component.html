@@ -1,0 +1,18 @@
+<div class="dashboard-item">
+  <div class="dashboard-delete" (click)="onOpenModal()">X</div>
+  <div class="delete-hover">Delete</div>
+  <a
+    [routerLink]="'/tasks/' + dashboard?._id + '/' + dashboard?.name">
+    <p class="dashboard-name">{{ dashboard?.name }}</p>
+    <div class="dashboard-descr">{{ cutDescription(dashboard?.description) }}</div>
+  </a>
+  <p class="dashboard-date">{{ dashboard?.createdDate?.toLocaleDateString() }}</p>
+  <app-dashboard-edit
+    *ngIf="isEdit"
+    [dashboard]="dashboard"
+    [index]="index"
+    (closeForm)="onCloseForm()"></app-dashboard-edit>
+  <button
+    class="btn edit-dashboard"
+    (click)="onEdit()">{{ isEdit ? 'Cancel' : 'Change name' }}</button>
+</div>

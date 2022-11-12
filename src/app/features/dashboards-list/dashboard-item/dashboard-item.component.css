@@ -1,0 +1,100 @@
+.dashboard-item a {
+  color: #F4A261;
+}
+
+.dashboard-name {
+  text-transform: uppercase;
+  font-size: 20px;
+}
+
+.dashboard-descr {
+  font-size: 14px;
+  width: 100%;
+  overflow-wrap: break-word;
+}
+
+.dashboard-date {
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+  font-size: 12px;
+}
+
+.dashboard-delete {
+  position: absolute;
+  right: 20px;
+}
+
+.delete-hover {
+  display: none;
+  position: absolute;
+  right: 3px;
+  top: 25px;
+}
+
+.dashboard-delete:hover + .delete-hover {
+  display: block;
+}
+
+.edit-dashboard {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+}
+
+@media (max-width: 1200px) {
+  .dashboard-name {
+    font-size: 18px;
+  }
+
+  .edit-dashboard {
+    font-size: 10px;
+  }
+
+  .dashboard-date {
+    font-size: 12px;
+    right: 10px;
+  }
+}
+
+@media (max-width: 992px) {
+  .dashboard-name {
+    font-size: 16px;
+  }
+
+  .dashboard-descr {
+    font-size: 12px;
+  }
+
+  .dashboard-delete {
+    top: 10px;
+    right: 15px;
+    font-size: 12px;
+  }
+
+  .delete-hover {
+    font-size: 10px;
+  }
+
+  .dashboard-date {
+    font-size: 12px;
+    right: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .delete-hover {
+    display: block;
+    right: 5px;
+  }
+}
+
+@media (max-width: 576px) {
+  .dashboard-name {
+    font-size: 14px;
+  }
+
+  .dashboard-descr {
+    font-size: 10px;
+  }
+}

@@ -1,0 +1,71 @@
+.dashboard-create-form {
+  width: 50%;
+  padding: 20px 0 50px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.dashboard-create-inputs {
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-create-inputs input, textarea {
+  background: transparent;
+  outline: none;
+  border: 1px solid #E9C46A;
+  border-radius: 4px;
+  padding: 5px;
+  color: #fff;
+}
+
+.create-dashboard {
+  width: 20%;
+}
+
+.create-dashboard:disabled {
+  opacity: .5;
+}
+
+.input-error {
+  color: red;
+  font-size: 12px;
+}
+
+.create-error {
+  margin: 10px 0 0 30px;
+  color: red;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
+.create-message {
+  margin: 10px 0 0;
+  color: green;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
+@media (max-width: 758px) {
+  .dashboard-create-form {
+    width: 100%;
+    padding-right: 30px;
+  }
+}
+@media (max-width: 576px) {
+  .dashboard-create-form {
+    padding: 10px 10px 0;
+  }
+
+  .dashboard-create-inputs {
+    font-size: 12px;
+  }
+
+  .dashboard-create-inputs input, textarea {
+    font-size: 10px;
+  }
+  .create-dashboard {
+    width: 30%;
+  }
+}

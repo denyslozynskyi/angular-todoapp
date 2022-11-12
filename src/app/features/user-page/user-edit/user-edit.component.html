@@ -1,0 +1,63 @@
+<app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+<form
+  *ngIf="!isLoading && !message"
+  #editUserForm="ngForm"
+  (ngSubmit)="onSubmit(editUserForm)"
+  class="user-edit-form">
+  <div class="user-edit-inputs" *ngIf="changeMode === 'info'">
+    <label for="name">Name</label>
+    <input
+        type="text"
+        id="name"
+        ngModel="{{ user?.name }}"
+        #nameInput
+        name="name"
+        required
+        #userName="ngModel">
+    <span *ngIf="!userName.valid && userName.touched" class="input-error">Input name please</span>
+  </div>
+  <div class="user-edit-inputs" *ngIf="changeMode === 'info'">
+    <label for="email">Email</label>
+    <input
+        type="email"
+        id="email"
+        ngModel="{{ user?.email }}"
+        name="email"
+        required
+        email
+        #userEmail="ngModel">
+    <span *ngIf="!userEmail.valid && userEmail.touched" class="input-error">Input correct email please</span>
+  </div>
+  <div class="user-edit-inputs" *ngIf="changeMode === 'password'">
+    <label for="oldPassword">Old password:</label>
+    <input
+        type="password"
+        id="oldPassword"
+        ngModel
+        #oldPasswordInput
+        name="oldPassword"
+        required
+        minlength="6"
+        #oldPassword="ngModel">
+    <span *ngIf="!oldPassword.valid && oldPassword.touched" class="input-error">Minimum password length is 6 symbols</span>
+  </div>
+  <div class="user-edit-inputs" *ngIf="changeMode === 'password'">
+    <label for="newPassword">New password:</label>
+    <input
+        type="password"
+        id="newPassword"
+        ngModel
+        name="newPassword"
+        required
+        minlength="6"
+        #newPassword="ngModel">
+    <span *ngIf="!newPassword.valid && newPassword.touched" class="input-error">Minimum password length is 6 symbols</span>
+  </div>
+  <button class="btn">Save</button>
+</form>
+<div class="edit-error" *ngIf="error">
+  <p>{{ error }}</p>
+</div>
+<div class="edit-message" *ngIf="message">
+  <p>{{ message }}</p>
+</div>

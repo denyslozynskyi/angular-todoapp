@@ -1,0 +1,42 @@
+<div class="dashboards-page">
+  <app-toolbar
+    *ngIf="dashboards?.length !== 0 && dashboards?.length !== 1"
+    [dashboards]="dashboards"></app-toolbar>
+  <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+  <app-delete-confirm
+    *ngIf="isDelete"
+    [dashboard]="deleteDashboard"
+    [dashboardIndex]="deleteDashboardIndex"
+    (closeModal)="onModalClose()"></app-delete-confirm>
+  <div class="lower-then-576px">
+    <button
+      (click)="onCreate()"
+      *ngIf="!isLoading"
+      class="btn create-dashboard-btn">{{ isCreate ? 'Cancel' : 'Create dashboard' }}</button>
+    <app-dashboard-create
+      *ngIf="isCreate"
+      (closeForm)="onCloseForm()"></app-dashboard-create>
+  </div>
+  <p 
+    class="no-dashboards"
+    *ngIf="!dashboards?.length && !isLoading">No dashboards found</p>
+  <div
+    class="dashboard-list"
+    *ngIf="dashboards?.length">
+    <app-dashboard-item
+      *ngFor="let dashboard of dashboards; let i = index"
+      [dashboard]="dashboard"
+      [index]="i"
+      class="dashboard-item"
+      (openModal)="onModalOpen($event)">test</app-dashboard-item>
+  </div>
+  <div class="upper-then-576px">
+    <button
+      (click)="onCreate()"
+      *ngIf="!isLoading"
+      class="btn create-dashboard-btn">{{ isCreate ? 'Cancel' : 'Create dashboard' }}</button>
+    <app-dashboard-create
+      *ngIf="isCreate"
+      (closeForm)="onCloseForm()"></app-dashboard-create>
+  </div>
+</div>

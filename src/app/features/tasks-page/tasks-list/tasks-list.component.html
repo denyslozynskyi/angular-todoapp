@@ -1,0 +1,28 @@
+<div>
+  <h2 class="task-list-header">{{ header }}</h2>
+  <p
+    class="no-tasks"
+    *ngIf="!tasks?.length">No tasks yet</p>
+  <button
+    class="btn create-task-btn"
+    *ngIf="canCreate"
+    (click)="onCreate()">{{ isCreate ? 'Cancel' : 'Create task' }}</button>
+  <app-task-create
+    class="task-create"
+    *ngIf="isCreate && canCreate"
+    [dashboardId]="dashboardId"
+    (closeForm)="onCloseForm()"></app-task-create>
+  <ul
+    class="task-list"
+    *ngIf="tasks?.length">
+    <li
+      class="task-item"
+      *ngFor="let task of tasks; let i = index"
+      cdkDrag>
+      <a [routerLink]="'task/' + task._id + '/' + i">
+        <p class="task-name">{{ task.name }}</p>
+        <p class="task-date">{{ task.createdDate.toLocaleDateString() }}</p>
+      </a>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,65 @@
+<div class="auth-page">
+  <div *ngIf="isLoading" style="text-align: center">
+      <app-loading-spinner></app-loading-spinner>
+  </div>
+  <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
+    <div class="auth-inputs" *ngIf="registerMode">
+      <label for="name">Name</label>
+      <input
+          type="text"
+          id="name"
+          ngModel
+          name="name"
+          required
+          #authName="ngModel">
+      <span *ngIf="!authName.valid && authName.touched" class="auth-input-error">Input name please</span>
+    </div>
+    <div class="auth-inputs">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          ngModel
+          name="email"
+          required
+          email
+          #authEmail="ngModel">
+        <span *ngIf="!authEmail.valid && authEmail.touched" class="auth-input-error">Input correct email please</span>
+    </div>
+    <div class="auth-inputs">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          ngModel
+          required
+          minlength="6"
+          #authPassword="ngModel">
+        <span *ngIf="!authPassword.valid && authPassword.touched" class="auth-input-error">Minimum password length is 6 symbols</span>
+    </div>
+    <div class="form-buttons">
+      <button
+        type="submit"
+        class="btn auth-btn"
+        [disabled]="!authForm.valid">{{ registerMode ? 'sign up' : 'login' }}</button>
+      |
+      <button
+        type="button"
+        class="btn auth-btn"
+        (click)="onChangeForm()">Switch to {{ registerMode ? 'login' : 'sign up' }}</button>
+    </div>
+    <button
+      *ngIf="!registerMode"
+      type="button"
+      class="btn auth-btn forgot-password"
+      [disabled]="!authEmail.valid"
+      (click)="onForgotPassword(authForm)">Forgot password</button>
+  </form>
+  <div class="auth-error" *ngIf="error">
+    <p>{{ error }}</p>
+  </div>
+  <div class="auth-success" *ngIf="message">
+    <p>{{ message }}</p>
+  </div>
+</div>

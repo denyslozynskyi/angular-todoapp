@@ -1,1 +1,48 @@
-/* You can add global styles to this file, and also import other style files */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Nunito', sans-serif;
+}
+
+body {
+  background-color: #264653;
+  color: #F4A261;
+}
+
+a {
+  color: #E9C46A;
+  text-decoration: none;
+}
+
+li {
+  list-style: none;
+}
+
+.btn {
+  background: transparent;
+  padding: 5px 10px;
+  border-color: #E9C46A;
+  border-radius: 4px;
+  color: #F4A261;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+@media (max-width: 1200px) {
+  
+}
+
+@media (max-width: 992px) {
+  .btn {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  
+}
+
+@media (max-width: 576px) {
+  
+}

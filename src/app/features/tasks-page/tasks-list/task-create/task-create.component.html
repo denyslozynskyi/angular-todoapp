@@ -1,0 +1,27 @@
+<form
+#createTaskForm="ngForm"
+(ngSubmit)="onSubmit(createTaskForm)"
+class="task-create-form">
+  <div class="task-create-inputs">
+    <label for="name">Name</label>
+    <input
+    type="text"
+    id="name"
+    ngModel
+    #nameInput
+    name="name"
+    required
+    #dashboardName="ngModel">
+    <span *ngIf="!dashboardName.valid && dashboardName.touched" class="input-error">Input name please</span>
+  </div>
+  <button
+    class="btn create-task"
+    [disabled]="!createTaskForm.valid">Create</button>
+  <div class="create-error" *ngIf="error">
+    <p>{{ error }}</p>
+  </div>
+  <div class="create-message" *ngIf="message">
+    <p>{{ message }}</p>
+  </div>
+  <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+</form>

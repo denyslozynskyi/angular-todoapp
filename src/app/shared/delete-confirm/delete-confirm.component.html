@@ -1,0 +1,25 @@
+<div class="delete-modal-background" (click)="onCloseModal()"></div>
+<div class="delete-modal">
+  <div class="delete-modal-inputs">
+    <label for="name">Please, input {{ dashboard ? 'dashboard name' : 'your email' }} to delete.</label>
+    <input
+      type="text"
+      id="name"
+      name="name"
+      [(ngModel)]="inputValue"
+      #nameInput>
+    <span *ngIf="error" class="input-error">{{ error }}</span>
+  </div>
+  <div class="delete-message" *ngIf="message">
+    <p>{{ message }}</p>
+  </div>
+  <div class="delete-modal-btns">
+    <button
+      class="btn"
+      (click)="dashboard ? onDeleteDashboard() : onDeleteUser()">Delete</button>
+    |
+    <button
+      class="btn"
+      (click)="onCloseModal()">Cancel</button>
+  </div>
+</div>

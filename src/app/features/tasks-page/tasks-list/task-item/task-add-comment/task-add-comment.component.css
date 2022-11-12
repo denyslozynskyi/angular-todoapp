@@ -1,0 +1,46 @@
+.add-comment-submit:disabled {
+  opacity: .5;
+}
+
+.add-comment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.add-comment-inputs {
+  display: flex;
+  flex-direction: column;
+}
+
+.add-comment-label {
+  font-size: 12px;
+}
+
+.add-comment-inputs input {
+  background: transparent;
+  outline: none;
+  border: 1px solid #E9C46A;
+  border-radius: 4px;
+  padding: 5px;
+  color: #fff;
+}
+
+.input-error {
+  color: red;
+  font-size: 12px;
+}
+
+.edit-error {
+  margin-top: 10px;
+  color: red;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
+.edit-message {
+  margin-top: 10px;
+  color: green;
+  text-transform: uppercase;
+  font-size: 14px;
+}

@@ -1,0 +1,31 @@
+<div class="user-page">
+  <app-loading-spinner *ngIf="!user"></app-loading-spinner>
+  <app-delete-confirm
+    class="user-page-delete"
+    *ngIf="isDelete"
+    [user]="user"
+    (closeModal)="onModalClose()"></app-delete-confirm>
+  <div class="user-page-main" *ngIf="user">
+    <p>Name: {{ user.name }}</p>
+    <p>Email: {{ user.email }}</p>
+    <p>Creation date: {{ user.creationDate.toLocaleDateString() }}</p>
+    <div class="user-page-btns">
+      <button
+      class="btn"
+      (click)="onInfoChange()">{{ isInfoChange ? 'Cancel' : 'Change user information' }}</button>
+      |
+      <button
+      class="btn"
+      (click)="onPasswordChange()">{{ isPasswordChange ? 'Cancel' : 'Change password' }}</button>
+      |
+      <button
+        class="btn"
+        (click)="onModalOpen()">Delete user</button>
+    </div>
+    <app-user-edit
+      *ngIf="isInfoChange || isPasswordChange"
+      [user]="user"
+      [changeMode]="changeMode"
+      (closeForm)="onCloseForm()"></app-user-edit>
+  </div>
+</div>

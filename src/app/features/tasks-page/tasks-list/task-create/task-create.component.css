@@ -1,0 +1,73 @@
+.task-create-form {
+  margin: 0 0 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.task-create-inputs {
+  display: flex;
+  flex-direction: column;
+}
+
+.task-create-inputs input {
+  background: transparent;
+  outline: none;
+  border: 1px solid #E9C46A;
+  border-radius: 4px;
+  padding: 5px;
+  color: #fff;
+}
+
+.create-task {
+  width: 20%;
+}
+
+.create-task:disabled {
+  opacity: .5;
+}
+
+.input-error {
+  color: red;
+  font-size: 12px;
+}
+
+.create-error {
+  margin: 10px 0 0 30px;
+  color: red;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
+.create-message {
+  color: green;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
+@media (max-width: 1200px) {
+  .create-task {
+    width: 30%;
+  }
+}
+
+@media (max-width: 992px) {
+  .create-task {
+    width: 40%;
+  }
+
+  .task-create-form {
+    gap: 5px;
+  }
+
+  .task-create-inputs {
+    font-size: 12px;
+  }
+
+  .task-create-inputs input {
+    font-size: 12px;
+  }
+  .create-message, .create-error {
+    font-size: 10px;
+  }
+}

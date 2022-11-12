@@ -1,0 +1,30 @@
+<app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+<form
+  *ngIf="!isLoading"
+  #addCommentForm="ngForm"
+  (ngSubmit)="onSubmit(addCommentForm)"
+  class="add-comment-form">
+  <div class="add-comment-inputs">
+    <label
+      class="add-comment-label"
+      for="commentText">Comment text:</label>
+    <input
+        type="text"
+        id="commentText"
+        #textInput
+        ngModel
+        name="commentText"
+        required
+        #commentText="ngModel">
+    <span *ngIf="!commentText.valid && commentText.touched" class="input-error">Input name please</span>
+  </div>
+  <button
+    class="btn add-comment-submit"
+    [disabled]="!addCommentForm.valid">Add</button>
+</form>
+<div class="add-comment-error" *ngIf="error">
+  <p>{{ error }}</p>
+</div>
+<div class="add-comment-message" *ngIf="message">
+  <p>{{ message }}</p>
+</div>

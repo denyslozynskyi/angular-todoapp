@@ -1,0 +1,26 @@
+<app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+<form
+  *ngIf="!isLoading && !message"
+  #editTaskForm="ngForm"
+  (ngSubmit)="onSubmit(editTaskForm)"
+  class="task-edit-form">
+  <div class="task-edit-inputs">
+    <label for="name">Name</label>
+    <input
+        type="text"
+        id="name"
+        #nameInput
+        ngModel="{{ task?.name }}"
+        name="name"
+        required
+        #taskName="ngModel">
+    <span *ngIf="!taskName.valid && taskName.touched" class="input-error">Input name please</span>
+  </div>
+  <button class="btn">Save</button>
+</form>
+<div class="edit-error" *ngIf="error">
+  <p>{{ error }}</p>
+</div>
+<div class="edit-message" *ngIf="message">
+  <p>{{ message }}</p>
+</div>

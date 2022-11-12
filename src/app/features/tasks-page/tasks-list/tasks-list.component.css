@@ -1,0 +1,65 @@
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0 0 20px;
+}
+
+.task-list-header {
+  margin: 0 0 20px;
+  text-transform: uppercase;
+  position: sticky;
+  top: 0;
+}
+
+.no-tasks {
+  margin: 0 0 20px;
+}
+
+.task-item {
+  width: 100%;
+  border: 1px solid #E9C46A;
+  border-radius: 4px;
+  padding: 5px 10px;
+}
+
+.task-item a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task-date {
+  font-size: 12px;
+}
+
+.create-task-btn {
+  margin-bottom: 20px;
+}
+
+@media (max-width: 992px) {
+  .task-list-header {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  .create-task-btn {
+    margin-bottom: 10px;
+  }
+
+  .task-name {
+    font-size: 12px;
+  }
+
+  .task-date {
+    font-size: 9px;
+  }
+}
+
+@media (max-width: 768px) {
+  .task-list-header {
+    font-size: 16px;
+  }
+
+  
+}

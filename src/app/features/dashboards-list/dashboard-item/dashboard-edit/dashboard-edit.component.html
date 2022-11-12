@@ -1,0 +1,26 @@
+<app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+<form
+  *ngIf="!isLoading && !message"
+  #editDashboardForm="ngForm"
+  (ngSubmit)="onSubmit(editDashboardForm)"
+  class="dashboard-edit-form">
+  <div class="dashboard-edit-inputs">
+    <label for="name">Name</label>
+    <input
+        type="text"
+        id="name"
+        ngModel="{{ dashboard?.name }}"
+        #nameInput
+        name="name"
+        required
+        #dashboardName="ngModel">
+    <span *ngIf="!dashboardName.valid && dashboardName.touched" class="input-error">Input name please</span>
+  </div>
+  <button class="btn edit-dashboard">Save</button>
+</form>
+<div class="edit-error" *ngIf="error">
+  <p>{{ error }}</p>
+</div>
+<div class="edit-message" *ngIf="message">
+  <p>{{ message }}</p>
+</div>

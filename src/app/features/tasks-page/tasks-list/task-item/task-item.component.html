@@ -1,0 +1,63 @@
+<div class="task-item-modal" (click)="onCloseTask()"></div>
+<div class="task-item">
+  <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+  <div class="task-header">
+    <h3
+      class="task-name"
+      *ngIf="!isLoading">{{ task?.name }}</h3>
+    <p
+      class="task-date"
+      *ngIf="!isLoading">Creation date: {{ task?.createdDate?.toLocaleDateString() }}</p>
+  </div>
+  <app-task-edit
+    *ngIf="isEdit"
+    [task]=task
+    [index]="taskIndex"
+    (closeForm)="onCloseForm()"></app-task-edit>
+  <div
+    class="task-comments"
+    *ngIf="!isEdit && !isLoading && !isAddComment">
+    <p class="comments-header">Comments:</p>
+    <p
+      class="no-comments"
+      *ngIf="!task?.comments?.length">No comments yet</p>
+    <ul
+      *ngIf="task?.comments?.length">
+      <li
+        *ngFor="let comment of task?.comments; let i = index">
+        <div class="task-comment">
+          <p class="comment-text">{{ comment }}</p>
+          <button
+            class="btn delete-comment"
+            (click)="onDeleteComment(i)">Delete</button>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <app-task-add-comment
+    *ngIf="isAddComment"
+    [task]="task"
+    (closeForm)="onCloseForm()"></app-task-add-comment>
+  <div
+    class="task-item-btns"
+    *ngIf="!isLoading">
+    <button
+      class="btn"
+      (click)="onEditTask()">{{ isEdit ? 'Cancel' : 'Edit' }}</button>
+    |
+    <button
+      class="btn"
+      (click)="onAddComment()">{{ isAddComment ? 'Cancel' : 'Add comment' }}</button>
+    |
+    <button
+      class="btn"
+      (click)="onDeleteTask()">Delete</button>
+    <ng-container *ngIf="task?.status === 'done'">
+      |
+    </ng-container>
+    <button
+      *ngIf="task?.status === 'done'"
+      class="btn"
+      (click)="onArchiveTask()">Archive</button>
+  </div>
+</div>

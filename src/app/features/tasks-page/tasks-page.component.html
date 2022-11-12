@@ -1,0 +1,55 @@
+<div class="task-page">
+  <app-toolbar
+    [tasks]="tasks"></app-toolbar>
+  <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+  <div
+    class="tasks"
+    *ngIf="!isLoading">
+    <app-tasks-list
+      class="task-list"
+      data-name="to do"
+      [header]="'todo'"
+      [tasks]="tasks?.toDo"
+      [canCreate]="true"
+      [dashboardId]="id"
+      cdkDropList
+      #toDoList="cdkDropList"
+      [cdkDropListData]="tasks?.toDo"
+      [cdkDropListConnectedTo]="[inProgressList, doneList]"
+      (cdkDropListDropped)="drop($event)"></app-tasks-list>
+    <app-tasks-list
+      class="task-list"
+      data-name="in progress"
+      [header]="'in progress'"
+      [tasks]="tasks?.inProgress"
+      [canCreate]="false"
+      cdkDropList
+      #inProgressList="cdkDropList"
+      [cdkDropListData]="tasks?.inProgress"
+      [cdkDropListConnectedTo]="[toDoList, doneList]"
+      (cdkDropListDropped)="drop($event)"></app-tasks-list>
+    <app-tasks-list
+      class="task-list"
+      data-name="done"
+      [header]="'done'"
+      [tasks]="tasks?.done"
+      [canCreate]="false"
+      cdkDropList
+      #doneList="cdkDropList"
+      [cdkDropListData]="tasks?.done"
+      [cdkDropListConnectedTo]="[toDoList, inProgressList]"
+      (cdkDropListDropped)="drop($event)"></app-tasks-list>
+  </div>
+  <div
+    class="task-archive"
+    *ngIf="!isLoading && tasks?.archived?.length"
+    (click)="onOpenArchive()">
+    <img src="../../../assets/archive-svgrepo-com.svg" alt="archive icon" class="archive-icon">
+    <p class="archive-text">Archive</p>
+  </div>
+  <app-tasks-archive
+    *ngIf="isArchiveOpen"
+    [tasks]="tasks?.archived"
+    (closeArchive)="onCloseArchive()"></app-tasks-archive>
+  <router-outlet></router-outlet>
+</div>

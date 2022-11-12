@@ -1,0 +1,56 @@
+.user-page {
+  position: relative;
+  min-height: 300px;
+  padding-top: 30px;
+}
+
+.user-page-delete {
+  top: 10%;
+  height: 80%;
+}
+
+.user-page-main {
+  width: 50%;
+  border: 1px solid #E9C46A;
+  border-radius: 8px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.user-page-btns {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+@media (max-width: 992px) {
+  .user-page-main {
+    width: 60%;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  .user-page-main {
+    width: 80%;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 576px) {
+  .user-page-main {
+    width: 100%;
+    font-size: 12px;
+  }
+
+  .user-page-btns {
+    font-size: 0;
+    flex-direction: column;
+    align-items: flex-start
+  }
+
+  .user-page-btns button {
+    width: 100%;
+  }
+}

@@ -1,0 +1,42 @@
+<div class="toolbar" *ngIf="dashboards || tasks">
+  <h3
+    class="toolbar-header"
+    *ngIf="dashboardName">{{ dashboardName }}</h3>
+  <div class="toolbar-inputs">
+    <div *ngIf="tasks" class="toolbar-input-group">
+      <label
+        for="filterInput">Filter by name:</label>
+      <input
+        class="toolbar-input"
+        id="filterInput"
+        type="text"
+        [(ngModel)]="name"
+        (change)="onFilter()">
+    </div>
+    <div class="toolbar-input-group">
+      <label
+        for="sorting-select"
+        *ngIf="!filtered">Sort by:</label>
+      <select
+        class="sort-select"
+        name="sort"
+        id="sorting-select"
+        *ngIf="!filtered"
+        [(ngModel)]="sortingSelect"
+        (change)="onSort()">
+        <option value="name">name</option>
+        <option value="date">date</option>
+      </select>
+      <button
+        class="btn toolbar-btn"
+        *ngIf="!filtered"
+        [ngClass]="isAscActive ? 'active' : ''"
+        (click)="onAscSelect()">asc</button>
+      <button
+        class="btn toolbar-btn"
+        *ngIf="!filtered"
+        [ngClass]="isAscActive ? '' : 'active'"
+        (click)="onDescSelect()">desc</button>
+    </div>
+  </div>
+</div>

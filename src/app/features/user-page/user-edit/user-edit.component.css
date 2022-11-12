@@ -1,0 +1,48 @@
+.user-edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.user-edit-inputs {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-edit-inputs input {
+  background: transparent;
+  outline: none;
+  border: 1px solid #E9C46A;
+  border-radius: 4px;
+  padding: 5px;
+  color: #fff;
+}
+
+.input-error {
+  color: red;
+  font-size: 12px;
+}
+
+.edit-error {
+  margin-top: 10px;
+  color: red;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+.edit-message {
+  margin-top: 10px;
+  color: green;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+@media (max-width: 992px) {
+  .dashboard-edit-inputs {
+    font-size: 12px;
+  }
+  .dashboard-edit-inputs input {
+    font-size: 10px;
+  }
+}
