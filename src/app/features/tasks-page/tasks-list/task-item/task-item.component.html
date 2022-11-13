@@ -7,7 +7,7 @@
       *ngIf="!isLoading">{{ task?.name }}</h3>
     <p
       class="task-date"
-      *ngIf="!isLoading">Creation date: {{ task?.createdDate?.toLocaleDateString() }}</p>
+      *ngIf="!isLoading">{{ 'TASKS.ITEM.CREATED' | translate: {createDate: task?.createdDate?.toLocaleDateString()} }}</p>
   </div>
   <app-task-edit
     *ngIf="isEdit"
@@ -17,10 +17,10 @@
   <div
     class="task-comments"
     *ngIf="!isEdit && !isLoading && !isAddComment">
-    <p class="comments-header">Comments:</p>
+    <p class="comments-header">{{ 'TASKS.ITEM.COMMENTS' | translate }}</p>
     <p
       class="no-comments"
-      *ngIf="!task?.comments?.length">No comments yet</p>
+      *ngIf="!task?.comments?.length">{{ 'TASKS.ITEM.NO_COMMENTS' | translate }}</p>
     <ul
       *ngIf="task?.comments?.length">
       <li
@@ -29,7 +29,7 @@
           <p class="comment-text">{{ comment }}</p>
           <button
             class="btn delete-comment"
-            (click)="onDeleteComment(i)">Delete</button>
+            (click)="onDeleteComment(i)">{{ 'COMMON.DELETE' | translate }}</button>
         </div>
       </li>
     </ul>
@@ -43,21 +43,21 @@
     *ngIf="!isLoading">
     <button
       class="btn"
-      (click)="onEditTask()">{{ isEdit ? 'Cancel' : 'Edit' }}</button>
+      (click)="onEditTask()">{{ isEdit ? ('COMMON.CANCEL' | translate) : ('COMMON.EDIT' | translate) }}</button>
     |
     <button
       class="btn"
-      (click)="onAddComment()">{{ isAddComment ? 'Cancel' : 'Add comment' }}</button>
+      (click)="onAddComment()">{{ isAddComment ? ('COMMON.CANCEL' | translate) : ('TASKS.ITEM.ADD_COMMENT' | translate) }}</button>
     |
     <button
       class="btn"
-      (click)="onDeleteTask()">Delete</button>
+      (click)="onDeleteTask()">{{ 'COMMON.DELETE' | translate }}</button>
     <ng-container *ngIf="task?.status === 'done'">
       |
     </ng-container>
     <button
       *ngIf="task?.status === 'done'"
       class="btn"
-      (click)="onArchiveTask()">Archive</button>
+      (click)="onArchiveTask()">{{ 'TASKS.ITEM.ARCHIVE' | translate }}</button>
   </div>
 </div>

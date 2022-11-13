@@ -1,7 +1,7 @@
 <div class="delete-modal-background" (click)="onCloseModal()"></div>
 <div class="delete-modal">
   <div class="delete-modal-inputs">
-    <label for="name">Please, input {{ dashboard ? 'dashboard name' : 'your email' }} to delete.</label>
+    <label for="name">{{ dashboard ? ('DELETE_CONFIRM.PLEASE_INPUT.DASHBOARD' | translate) : ('DELETE_CONFIRM.PLEASE_INPUT.USER' | translate) }}</label>
     <input
       type="text"
       id="name"
@@ -16,10 +16,10 @@
   <div class="delete-modal-btns">
     <button
       class="btn"
-      (click)="dashboard ? onDeleteDashboard() : onDeleteUser()">Delete</button>
+      (click)="dashboard ? onDeleteDashboard() : onDeleteUser()">{{ 'COMMON.DELETE' | translate }}</button>
     |
     <button
       class="btn"
-      (click)="onCloseModal()">Cancel</button>
+      (click)="onCloseModal()">{{ 'COMMON.CANCEL' | translate }}</button>
   </div>
 </div>

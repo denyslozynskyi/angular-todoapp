@@ -5,7 +5,7 @@
   <div class="toolbar-inputs">
     <div *ngIf="tasks" class="toolbar-input-group">
       <label
-        for="filterInput">Filter by name:</label>
+        for="filterInput">{{ 'TOOLBAR.FILTER' | translate }}</label>
       <input
         class="toolbar-input"
         id="filterInput"
@@ -16,7 +16,7 @@
     <div class="toolbar-input-group">
       <label
         for="sorting-select"
-        *ngIf="!filtered">Sort by:</label>
+        *ngIf="!filtered">{{ 'TOOLBAR.SORT' | translate }}</label>
       <select
         class="sort-select"
         name="sort"
@@ -24,19 +24,19 @@
         *ngIf="!filtered"
         [(ngModel)]="sortingSelect"
         (change)="onSort()">
-        <option value="name">name</option>
-        <option value="date">date</option>
+        <option value="name">{{ 'TOOLBAR.NAME' | translate }}</option>
+        <option value="date">{{ 'TOOLBAR.DATE' | translate }}</option>
       </select>
       <button
         class="btn toolbar-btn"
         *ngIf="!filtered"
         [ngClass]="isAscActive ? 'active' : ''"
-        (click)="onAscSelect()">asc</button>
+        (click)="onAscSelect()">{{ 'TOOLBAR.ASC' | translate }}</button>
       <button
         class="btn toolbar-btn"
         *ngIf="!filtered"
         [ngClass]="isAscActive ? '' : 'active'"
-        (click)="onDescSelect()">desc</button>
+        (click)="onDescSelect()">{{ 'TOOLBAR.DESC' | translate }}</button>
     </div>
   </div>
 </div>

@@ -1,6 +1,6 @@
 <div class="dashboard-item">
   <div class="dashboard-delete" (click)="onOpenModal()">X</div>
-  <div class="delete-hover">Delete</div>
+  <div class="delete-hover">{{ 'COMMON.DELETE' | translate }}</div>
   <a
     [routerLink]="'/tasks/' + dashboard?._id + '/' + dashboard?.name">
     <p class="dashboard-name">{{ dashboard?.name }}</p>
@@ -14,5 +14,5 @@
     (closeForm)="onCloseForm()"></app-dashboard-edit>
   <button
     class="btn edit-dashboard"
-    (click)="onEdit()">{{ isEdit ? 'Cancel' : 'Change name' }}</button>
+    (click)="onEdit()">{{ isEdit ? ('COMMON.CANCEL' | translate) : ('DASHBOARDS.ITEM.EDIT' | translate) }}</button>
 </div>

@@ -7,7 +7,7 @@
   <div class="add-comment-inputs">
     <label
       class="add-comment-label"
-      for="commentText">Comment text:</label>
+      for="commentText">{{ 'TASKS.ADD_COMMENT.COMMENT_TEXT' | translate }}</label>
     <input
         type="text"
         id="commentText"
@@ -16,11 +16,11 @@
         name="commentText"
         required
         #commentText="ngModel">
-    <span *ngIf="!commentText.valid && commentText.touched" class="input-error">Input name please</span>
+    <span *ngIf="!commentText.valid && commentText.touched" class="input-error">{{ 'TASKS.ADD_COMMENT.ERROR' | translate }}</span>
   </div>
   <button
     class="btn add-comment-submit"
-    [disabled]="!addCommentForm.valid">Add</button>
+    [disabled]="!addCommentForm.valid">{{ 'TASKS.ADD_COMMENT.ADD' | translate }}</button>
 </form>
 <div class="add-comment-error" *ngIf="error">
   <p>{{ error }}</p>

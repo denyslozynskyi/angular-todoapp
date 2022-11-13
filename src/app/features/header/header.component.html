@@ -4,14 +4,24 @@
       <div class="navbar-logo">
         <a routerLink="/">Dashboards</a>
       </div>
+
+      <div class="choose-lang">
+        <button
+          class="btn choose-lang-btn"
+          (click)="onChooseEnglish()">EN</button>
+        |
+        <button
+          class="btn"
+          (click)="onChooseUkrainian()">UA</button>
+      </div>
     
       <div class="navbar-tabs">    
         <ul class="navbar-info" *ngIf="isAuthenticated">
           <li class="info-text">
-            <a routerLink="user">Hello, {{ username }}!</a>
+            <a routerLink="user">{{ 'HEADER.GREETING' | translate: {username} }}</a>
           </li>
           <li class="logout">
-            <a (click)="onLogout()">Logout</a>
+            <a (click)="onLogout()">{{ 'HEADER.LOGOUT' | translate }}</a>
           </li>
         </ul>
       </div>

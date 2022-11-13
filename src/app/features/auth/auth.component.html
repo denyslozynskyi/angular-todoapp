@@ -4,7 +4,7 @@
   </div>
   <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
     <div class="auth-inputs" *ngIf="registerMode">
-      <label for="name">Name</label>
+      <label for="name">{{ 'COMMON.LABEL.NAME' | translate }}</label>
       <input
           type="text"
           id="name"
@@ -12,10 +12,10 @@
           name="name"
           required
           #authName="ngModel">
-      <span *ngIf="!authName.valid && authName.touched" class="auth-input-error">Input name please</span>
+      <span *ngIf="!authName.valid && authName.touched" class="auth-input-error">{{ 'COMMON.ERROR.NAME_INPUT' | translate }}</span>
     </div>
     <div class="auth-inputs">
-        <label for="email">Email</label>
+        <label for="email">{{ 'COMMON.LABEL.EMAIL' | translate }}</label>
         <input
           type="email"
           id="email"
@@ -24,10 +24,10 @@
           required
           email
           #authEmail="ngModel">
-        <span *ngIf="!authEmail.valid && authEmail.touched" class="auth-input-error">Input correct email please</span>
+        <span *ngIf="!authEmail.valid && authEmail.touched" class="auth-input-error">{{ 'COMMON.ERROR.EMAIL_INPUT' | translate }}</span>
     </div>
     <div class="auth-inputs">
-        <label for="password">Password</label>
+        <label for="password">{{ 'COMMON.LABEL.PASSWORD' | translate }}</label>
         <input
           type="password"
           id="password"
@@ -36,25 +36,25 @@
           required
           minlength="6"
           #authPassword="ngModel">
-        <span *ngIf="!authPassword.valid && authPassword.touched" class="auth-input-error">Minimum password length is 6 symbols</span>
+        <span *ngIf="!authPassword.valid && authPassword.touched" class="auth-input-error">{{ 'COMMON.ERROR.PASSWORD_INPUT' | translate }}</span>
     </div>
     <div class="form-buttons">
       <button
         type="submit"
         class="btn auth-btn"
-        [disabled]="!authForm.valid">{{ registerMode ? 'sign up' : 'login' }}</button>
+        [disabled]="!authForm.valid">{{ registerMode ? ('AUTH.BUTTONS.SIGNUP' | translate) : ('AUTH.BUTTONS.LOGIN' | translate) }}</button>
       |
       <button
         type="button"
         class="btn auth-btn"
-        (click)="onChangeForm()">Switch to {{ registerMode ? 'login' : 'sign up' }}</button>
+        (click)="onChangeForm()">{{ registerMode ? ('AUTH.BUTTONS.SWITCH_TO.LOGIN' | translate) : ('AUTH.BUTTONS.SWITCH_TO.SIGNUP' | translate) }}</button>
     </div>
     <button
       *ngIf="!registerMode"
       type="button"
       class="btn auth-btn forgot-password"
       [disabled]="!authEmail.valid"
-      (click)="onForgotPassword(authForm)">Forgot password</button>
+      (click)="onForgotPassword(authForm)">{{ 'AUTH.BUTTONS.FORGOT_PASSWORD' | translate }}</button>
   </form>
   <div class="auth-error" *ngIf="error">
     <p>{{ error }}</p>

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { TranslateStore } from '@ngx-translate/core';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './features/header/header.component';
@@ -20,6 +21,9 @@ import { CoreModule } from './core.module';
     AppRoutingModule,
     SharedModule,
     CoreModule
+  ],
+  providers: [
+    TranslateStore
   ],
   bootstrap: [AppComponent]
 })

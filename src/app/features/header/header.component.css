@@ -33,6 +33,10 @@
   cursor: default;
 }
 
+.choose-lang {
+  cursor: default;
+}
+
 .logout {
   cursor: pointer;
   padding: 5px 10px;
@@ -79,14 +83,26 @@
     max-width: 80vw;
   }
 
+  .navbar {
+    flex-wrap: wrap;
+    padding: 5px 0;
+  }
+
   .navbar-logo {
     font-size: 14px;
   }
 
-  .navbar-info {
-    font-size: 12px;
+  .navbar-tabs {
+    width: 100%;
   }
+
+  .navbar-info {
+    margin-top: 5px;
+    font-size: 12px;
+    justify-content: space-between;
+  }
+
   .logout {
-    padding: 2px 5px;
+    padding: 5px 10px;
   }
 }

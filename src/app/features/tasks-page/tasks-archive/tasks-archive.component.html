@@ -1,25 +1,25 @@
 <div class="task-archive-modal" (click)="onCloseArchive()"></div>
 <div class="task-archive">
   <h3
-    class="task-arhive-header">Tasks archive</h3>
+    class="task-arhive-header">{{ 'TASKS.ARCHIVE.HEADER' | translate }}</h3>
   <p
-    *ngIf="tasks?.length === 0">No archived tasks</p>
+    *ngIf="tasks?.length === 0">{{ 'TASKS.ARCHIVE.NO_TASKS' | translate }}</p>
   <ul class="archive-tasks">
     <li
       class="archive-task"
       *ngFor="let task of tasks; let i = index">
       <div class="archive-task-info">
         <p class="task-name">{{ task.name }}</p>
-        <p class="task-archived-date">Archived on: {{ task.updatedAt.toLocaleDateString() }}</p>
+        <p class="task-archived-date">{{ 'TASKS.ARCHIVE.ARCHIVED' | translate: {updateDate: task.updatedAt.toLocaleDateString()} }}</p>
       </div>
       <div class="archive-btns">
         <button
           class="btn archive-task-btn"
-          (click)="onRemoveFromArchive(task, i)">Back to DONE list</button>
+          (click)="onRemoveFromArchive(task, i)">{{ "TASKS.ARCHIVE.BACK_TO_LIST" | translate }}</button>
         |
         <button
           class="btn archive-task-btn"
-          (click)="onDeleteTask(task, i)">Delete task</button>
+          (click)="onDeleteTask(task, i)">{{ 'COMMON.DELETE' | translate }}</button>
       </div>
     </li>
   </ul>

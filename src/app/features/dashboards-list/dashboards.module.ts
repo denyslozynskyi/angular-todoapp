@@ -1,5 +1,4 @@
 import { NgModule } from "@angular/core";
-import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 
 import { DashboardsListComponent } from "./dashboards-list.component";
@@ -19,7 +18,6 @@ import { AuthGuard } from "../auth/auth.guard";
     DashboardEditComponent
   ],
   imports: [
-    FormsModule,
     RouterModule.forChild([
       { path: '', component: DashboardsListComponent, canActivate: [AuthGuard] },
     ]),

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 import { UserService } from './user.service';
 import { UserData } from './userData.model';
@@ -15,7 +16,9 @@ export class UserPageComponent implements OnInit {
   isDelete = false;
   changeMode: string = '';
 
-  constructor(private userService: UserService) { }
+  constructor(
+    private userService: UserService,
+    private translate: TranslateService) { }
 
   ngOnInit(): void {
     this.userService.fetchUserData()

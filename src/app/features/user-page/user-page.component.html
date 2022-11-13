@@ -6,21 +6,21 @@
     [user]="user"
     (closeModal)="onModalClose()"></app-delete-confirm>
   <div class="user-page-main" *ngIf="user">
-    <p>Name: {{ user.name }}</p>
-    <p>Email: {{ user.email }}</p>
-    <p>Creation date: {{ user.creationDate.toLocaleDateString() }}</p>
+    <p>{{ 'USER_PAGE.NAME' | translate: {userName: user.name} }}</p>
+    <p>{{ 'USER_PAGE.EMAIL' | translate: {email: user.email} }}</p>
+    <p>{{ 'USER_PAGE.CREATION_DATE' | translate: {createDate: user.creationDate.toLocaleDateString()} }}</p>
     <div class="user-page-btns">
       <button
       class="btn"
-      (click)="onInfoChange()">{{ isInfoChange ? 'Cancel' : 'Change user information' }}</button>
+      (click)="onInfoChange()">{{ isInfoChange ? ('COMMON.CANCEL' | translate) : ('USER_PAGE.CHANGE_INFO' | translate) }}</button>
       |
       <button
       class="btn"
-      (click)="onPasswordChange()">{{ isPasswordChange ? 'Cancel' : 'Change password' }}</button>
+      (click)="onPasswordChange()">{{ isPasswordChange ? ('COMMON.CANCEL' | translate) : ('USER_PAGE.CHANGE_PASSWORD' | translate) }}</button>
       |
       <button
         class="btn"
-        (click)="onModalOpen()">Delete user</button>
+        (click)="onModalOpen()">{{ 'USER_PAGE.DELETE_USER' | translate }}</button>
     </div>
     <app-user-edit
       *ngIf="isInfoChange || isPasswordChange"

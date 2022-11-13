@@ -5,7 +5,7 @@
   (ngSubmit)="onSubmit(editDashboardForm)"
   class="dashboard-edit-form">
   <div class="dashboard-edit-inputs">
-    <label for="name">Name</label>
+    <label for="name">{{ 'COMMON.LABEL.ITEM_NAME' | translate }}</label>
     <input
         type="text"
         id="name"
@@ -14,9 +14,9 @@
         name="name"
         required
         #dashboardName="ngModel">
-    <span *ngIf="!dashboardName.valid && dashboardName.touched" class="input-error">Input name please</span>
+    <span *ngIf="!dashboardName.valid && dashboardName.touched" class="input-error">{{ 'COMMON.ERROR.ITEM_NAME_INPUT' | translate }}</span>
   </div>
-  <button class="btn edit-dashboard">Save</button>
+  <button class="btn edit-dashboard">{{ 'COMMON.SAVE' | translate }}</button>
 </form>
 <div class="edit-error" *ngIf="error">
   <p>{{ error }}</p>

@@ -2,11 +2,11 @@
   <h2 class="task-list-header">{{ header }}</h2>
   <p
     class="no-tasks"
-    *ngIf="!tasks?.length">No tasks yet</p>
+    *ngIf="!tasks?.length">{{ 'TASKS.LIST.NO_TASKS' | translate }}</p>
   <button
     class="btn create-task-btn"
     *ngIf="canCreate"
-    (click)="onCreate()">{{ isCreate ? 'Cancel' : 'Create task' }}</button>
+    (click)="onCreate()">{{ isCreate ? ('COMMON.CANCEL' | translate) : ('TASKS.LIST.CREATE' | translate) }}</button>
   <app-task-create
     class="task-create"
     *ngIf="isCreate && canCreate"

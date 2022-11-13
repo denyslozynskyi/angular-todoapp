@@ -5,7 +5,7 @@
   (ngSubmit)="onSubmit(editUserForm)"
   class="user-edit-form">
   <div class="user-edit-inputs" *ngIf="changeMode === 'info'">
-    <label for="name">Name</label>
+    <label for="name">{{ 'COMMON.LABEL.NAME' | translate }}</label>
     <input
         type="text"
         id="name"
@@ -14,10 +14,10 @@
         name="name"
         required
         #userName="ngModel">
-    <span *ngIf="!userName.valid && userName.touched" class="input-error">Input name please</span>
+    <span *ngIf="!userName.valid && userName.touched" class="input-error">{{ 'COMMON.ERROR.NAME_INPUT' | translate }}</span>
   </div>
   <div class="user-edit-inputs" *ngIf="changeMode === 'info'">
-    <label for="email">Email</label>
+    <label for="email">{{ 'COMMON.LABEL.EMAIL' | translate }}</label>
     <input
         type="email"
         id="email"
@@ -26,10 +26,10 @@
         required
         email
         #userEmail="ngModel">
-    <span *ngIf="!userEmail.valid && userEmail.touched" class="input-error">Input correct email please</span>
+    <span *ngIf="!userEmail.valid && userEmail.touched" class="input-error">{{ 'COMMON.ERROR.EMAIL_INPUT' | translate }}</span>
   </div>
   <div class="user-edit-inputs" *ngIf="changeMode === 'password'">
-    <label for="oldPassword">Old password:</label>
+    <label for="oldPassword">{{ 'USER_PAGE.USER_EDIT.OLD_PASSWORD' | translate }}</label>
     <input
         type="password"
         id="oldPassword"
@@ -39,10 +39,10 @@
         required
         minlength="6"
         #oldPassword="ngModel">
-    <span *ngIf="!oldPassword.valid && oldPassword.touched" class="input-error">Minimum password length is 6 symbols</span>
+    <span *ngIf="!oldPassword.valid && oldPassword.touched" class="input-error">{{ 'COMMON.ERROR.PASSWORD_INPUT' | translate }}</span>
   </div>
   <div class="user-edit-inputs" *ngIf="changeMode === 'password'">
-    <label for="newPassword">New password:</label>
+    <label for="newPassword">{{ 'USER_PAGE.USER_EDIT.NEW_PASSWORD' | translate }}</label>
     <input
         type="password"
         id="newPassword"
@@ -51,9 +51,9 @@
         required
         minlength="6"
         #newPassword="ngModel">
-    <span *ngIf="!newPassword.valid && newPassword.touched" class="input-error">Minimum password length is 6 symbols</span>
+    <span *ngIf="!newPassword.valid && newPassword.touched" class="input-error">{{ 'COMMON.ERROR.PASSWORD_INPUT' | translate }}</span>
   </div>
-  <button class="btn">Save</button>
+  <button class="btn">{{ 'COMMON.SAVE' | translate }}</button>
 </form>
 <div class="edit-error" *ngIf="error">
   <p>{{ error }}</p>

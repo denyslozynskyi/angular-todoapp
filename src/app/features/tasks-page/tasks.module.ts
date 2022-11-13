@@ -1,5 +1,4 @@
 import { NgModule } from "@angular/core";
-import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { DragDropModule } from "@angular/cdk/drag-drop";
 
@@ -25,7 +24,6 @@ import { AuthGuard } from "../auth/auth.guard";
     TaskAddCommentComponent,
   ],
   imports: [
-    FormsModule,
     RouterModule.forChild([
       { path: ':id/:name', component: TasksPageComponent, canActivate: [AuthGuard], children: [
         { path: 'task/:id/:index', component: TaskItemComponent }

@@ -5,7 +5,7 @@
   (ngSubmit)="onSubmit(editTaskForm)"
   class="task-edit-form">
   <div class="task-edit-inputs">
-    <label for="name">Name</label>
+    <label for="name">{{ 'COMMON.LABEL.ITEM_NAME' | translate }}</label>
     <input
         type="text"
         id="name"
@@ -14,9 +14,9 @@
         name="name"
         required
         #taskName="ngModel">
-    <span *ngIf="!taskName.valid && taskName.touched" class="input-error">Input name please</span>
+    <span *ngIf="!taskName.valid && taskName.touched" class="input-error">{{ 'COMMON.ERROR.ITEM_NAME_INPUT' | translate }}</span>
   </div>
-  <button class="btn">Save</button>
+  <button class="btn">{{ 'COMMON.SAVE' | translate }}</button>
 </form>
 <div class="edit-error" *ngIf="error">
   <p>{{ error }}</p>

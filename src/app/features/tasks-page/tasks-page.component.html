@@ -8,7 +8,7 @@
     <app-tasks-list
       class="task-list"
       data-name="to do"
-      [header]="'todo'"
+      [header]="'TASKS.PAGE.TO_DO' | translate"
       [tasks]="tasks?.toDo"
       [canCreate]="true"
       [dashboardId]="id"
@@ -20,7 +20,7 @@
     <app-tasks-list
       class="task-list"
       data-name="in progress"
-      [header]="'in progress'"
+      [header]="'TASKS.PAGE.IN_PROGRESS' | translate"
       [tasks]="tasks?.inProgress"
       [canCreate]="false"
       cdkDropList
@@ -31,7 +31,7 @@
     <app-tasks-list
       class="task-list"
       data-name="done"
-      [header]="'done'"
+      [header]="'TASKS.PAGE.DONE' | translate"
       [tasks]="tasks?.done"
       [canCreate]="false"
       cdkDropList
@@ -45,7 +45,7 @@
     *ngIf="!isLoading && tasks?.archived?.length"
     (click)="onOpenArchive()">
     <img src="../../../assets/archive-svgrepo-com.svg" alt="archive icon" class="archive-icon">
-    <p class="archive-text">Archive</p>
+    <p class="archive-text">{{ 'TASKS.PAGE.ARCHIVE' | translate }}</p>
   </div>
   <app-tasks-archive
     *ngIf="isArchiveOpen"

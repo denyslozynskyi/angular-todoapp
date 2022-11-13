@@ -30,6 +30,7 @@
   position: absolute;
   right: 3px;
   top: 25px;
+  font-size: 12px;
 }
 
 .dashboard-delete:hover + .delete-hover {
