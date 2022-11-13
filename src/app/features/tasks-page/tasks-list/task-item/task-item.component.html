@@ -17,7 +17,7 @@
   <div
     class="task-comments"
     *ngIf="!isEdit && !isLoading && !isAddComment">
-    <p class="comments-header">{{ 'TASKS.ITEM.COMMENTS' | translate }}</p>
+    <p class="comments-header">{{ 'TASKS.ITEM.COMMENTS' | translate }} {{ task?.comments?.length }}</p>
     <p
       class="no-comments"
       *ngIf="!task?.comments?.length">{{ 'TASKS.ITEM.NO_COMMENTS' | translate }}</p>
