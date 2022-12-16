@@ -1,10 +1,10 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Router } from "@angular/router";
-import { BehaviorSubject, throwError } from "rxjs";
-import { catchError, tap } from "rxjs/operators";
+import { Router } from '@angular/router';
+import { BehaviorSubject, throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 
-import { User } from "./user.model";
+import { User } from './user.model';
 
 export interface AuthResponceData {
   name: string;
@@ -13,37 +13,39 @@ export interface AuthResponceData {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   user = new BehaviorSubject<User | null>(null);
 
-  constructor(
-    private http: HttpClient,
-    private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   signup(name: string, email: string, password: string) {
-    return this.http.post<AuthResponceData>(
-      'https://peaceful-coast-58182.herokuapp.com/api/auth/register',
-      {
-        name,
-        email,
-        password
-      }).pipe(
-        catchError(this.handleError)
-      );
+    return this.http
+      .post<AuthResponceData>(
+        'https://angular-todo-app-server.onrender.com/api/auth/register',
+        {
+          name,
+          email,
+          password,
+        }
+      )
+      .pipe(catchError(this.handleError));
   }
 
   login(email: string, password: string) {
-    return this.http.post<AuthResponceData>(
-      'https://peaceful-coast-58182.herokuapp.com/api/auth/login',
-      {
-        email,
-        password
-      }).pipe(
+    return this.http
+      .post<AuthResponceData>(
+        'https://angular-todo-app-server.onrender.com/api/auth/login',
+        {
+          email,
+          password,
+        }
+      )
+      .pipe(
         catchError(this.handleError),
-        tap(resData => {
-          this.handleAuthentication(resData.name, resData.jwt_token)
+        tap((resData) => {
+          this.handleAuthentication(resData.name, resData.jwt_token);
         })
       );
   }
@@ -58,12 +60,12 @@ export class AuthService {
     if (!localStorage.getItem('userData')) {
       return;
     }
-    
+
     const userData: {
       name: string;
       _token: string;
-    } = JSON.parse(localStorage.getItem('userData') || "");
-    
+    } = JSON.parse(localStorage.getItem('userData') || '');
+
     if (!userData) {
       return;
     }
@@ -74,16 +76,16 @@ export class AuthService {
 
   forgotPassword(email: string) {
     return this.http.post<{ message: string }>(
-      'https://peaceful-coast-58182.herokuapp.com/api/auth/forgotpassword',
+      'https://angular-todo-app-server.onrender.com/api/auth/forgotpassword',
       {
-        email
+        email,
       }
     );
   }
 
   private handleError(errorRes: HttpErrorResponse) {
-    let errorMessage = 'Unknown error!'
-    
+    let errorMessage = 'Unknown error!';
+
     if (!errorRes.error) {
       return throwError(errorMessage);
     }

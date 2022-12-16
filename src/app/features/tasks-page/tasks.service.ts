@@ -1,8 +1,8 @@
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { Injectable, OnDestroy, OnInit } from "@angular/core";
-import { catchError, Subject, Subscription, tap, throwError } from "rxjs";
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Injectable, OnDestroy, OnInit } from '@angular/core';
+import { catchError, Subject, Subscription, tap, throwError } from 'rxjs';
 
-import { Task } from "./task.model";
+import { Task } from './task.model';
 
 export interface Tasks {
   toDo: Task[];
@@ -12,20 +12,20 @@ export interface Tasks {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TasksService implements OnInit, OnDestroy {
   private tasks: Tasks = {
     toDo: [],
     inProgress: [],
     done: [],
-    archived: []
+    archived: [],
   };
   private filteredTasks: Tasks = {
     toDo: [],
     inProgress: [],
     done: [],
-    archived: []
+    archived: [],
   };
   private taskStatusChangeSub: Subscription | undefined;
   private taskDeleteSub: Subscription | undefined;
@@ -34,8 +34,7 @@ export class TasksService implements OnInit, OnDestroy {
 
   constructor(private http: HttpClient) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     this.taskStatusChangeSub?.unsubscribe();
@@ -61,68 +60,79 @@ export class TasksService implements OnInit, OnDestroy {
     });
 
     this.tasks = tasks;
-    this.tasksChange.next(this.tasks);   
+    this.tasksChange.next(this.tasks);
   }
 
   createTask(name: string, dashboardId: string | undefined) {
-    return this.http.post<{ message: string, result: Tasks }>(
-      'https://peaceful-coast-58182.herokuapp.com/api/tasks/create',
-      {
-        name,
-        status: 'to do',
-        dashboardId
-      }).pipe(
+    return this.http
+      .post<{ message: string; result: Tasks }>(
+        'https://angular-todo-app-server.onrender.com/api/tasks/create',
+        {
+          name,
+          status: 'to do',
+          dashboardId,
+        }
+      )
+      .pipe(
         catchError(this.handleError),
-        tap(resData => {
+        tap((resData) => {
           this.setTasks(resData.result);
         })
       );
   }
 
   getTask(id: string) {
-    return this.http.get<Task>(
-      'https://peaceful-coast-58182.herokuapp.com/api/tasks/task/' + id
-    ).pipe(
-      catchError(this.handleError)
-    );
+    return this.http
+      .get<Task>(
+        'https://angular-todo-app-server.onrender.com/api/tasks/task/' + id
+      )
+      .pipe(catchError(this.handleError));
   }
 
-  editTask(task: Task, index: number, name: string, status: string, ) {
+  editTask(task: Task, index: number, name: string, status: string) {
     const taskId = task._id;
-    return this.http.put<{message: string}>(
-      'https://peaceful-coast-58182.herokuapp.com/api/tasks/edit/' + taskId,
-      {
-        name,
-        status
-      }).pipe(
+    return this.http
+      .put<{ message: string }>(
+        'https://angular-todo-app-server.onrender.com/api/tasks/edit/' + taskId,
+        {
+          name,
+          status,
+        }
+      )
+      .pipe(
         catchError(this.handleError),
         tap(() => {
           const tasks = this.getTasksFieldname(status) || [];
           tasks[index].name = name;
           this.setTasks(this.tasks);
-          this.taskChange.next(tasks[index]);;
+          this.taskChange.next(tasks[index]);
         })
       );
   }
 
   changeTaskStatus(taskId: string, newStatus: string, taskName: string) {
-    this.taskStatusChangeSub = this.http.put<{message: string}>(
-      'https://peaceful-coast-58182.herokuapp.com/api/tasks/edit/' + taskId,
-      {
-        name: taskName,
-        status: newStatus
-      }
-    ).subscribe();
+    this.taskStatusChangeSub = this.http
+      .put<{ message: string }>(
+        'https://angular-todo-app-server.onrender.com/api/tasks/edit/' + taskId,
+        {
+          name: taskName,
+          status: newStatus,
+        }
+      )
+      .subscribe();
   }
 
   deleteTask(index: number, taskId: string, taskStatus: string) {
     const tasks = this.getTasksFieldname(taskStatus) || [];
-    this.taskDeleteSub = this.http.delete(
-      'https://peaceful-coast-58182.herokuapp.com/api/tasks/delete/' + taskId
-    ).subscribe(() => {
-      tasks.splice(index, 1);
-      this.tasksChange.next(this.tasks);
-    });
+    this.taskDeleteSub = this.http
+      .delete(
+        'https://angular-todo-app-server.onrender.com/api/tasks/delete/' +
+          taskId
+      )
+      .subscribe(() => {
+        tasks.splice(index, 1);
+        this.tasksChange.next(this.tasks);
+      });
   }
 
   archiveTask(index: number, task: Task) {
@@ -142,35 +152,44 @@ export class TasksService implements OnInit, OnDestroy {
   }
 
   addComment(task: Task, comment: string) {
-    return this.http.put<{ task:Task }>(
-      'https://peaceful-coast-58182.herokuapp.com/api/tasks/task/' + task._id + '/addcomment',
-      {
-        comment
-      }
-    ).pipe(
-      catchError(this.handleError),
-      tap(resData => {
-        const task = resData.task;
-        task.createdDate = new Date(task.createdDate);
-        task.updatedAt = new Date(task.updatedAt);
-        this.taskChange.next(task);
-      })
-    );
+    return this.http
+      .put<{ task: Task }>(
+        'https://angular-todo-app-server.onrender.com/api/tasks/task/' +
+          task._id +
+          '/addcomment',
+        {
+          comment,
+        }
+      )
+      .pipe(
+        catchError(this.handleError),
+        tap((resData) => {
+          const task = resData.task;
+          task.createdDate = new Date(task.createdDate);
+          task.updatedAt = new Date(task.updatedAt);
+          this.taskChange.next(task);
+        })
+      );
   }
 
   deleteComment(task: Task | undefined, index: number) {
-    return this.http.put<{ task:Task }>(
-      'https://peaceful-coast-58182.herokuapp.com/api/tasks/task/' + task?._id + '/deletecomment' + `/${index}`,
-      {}
-    ).pipe(
-      catchError(this.handleError),
-      tap(resData => {
-        const task = resData.task;
-        task.createdDate = new Date(task.createdDate);
-        task.updatedAt = new Date(task.updatedAt);
-        this.taskChange.next(task);
-      })
-    );
+    return this.http
+      .put<{ task: Task }>(
+        'https://angular-todo-app-server.onrender.com/api/tasks/task/' +
+          task?._id +
+          '/deletecomment' +
+          `/${index}`,
+        {}
+      )
+      .pipe(
+        catchError(this.handleError),
+        tap((resData) => {
+          const task = resData.task;
+          task.createdDate = new Date(task.createdDate);
+          task.updatedAt = new Date(task.updatedAt);
+          this.taskChange.next(task);
+        })
+      );
   }
 
   filterTasks(name: string) {
@@ -178,19 +197,21 @@ export class TasksService implements OnInit, OnDestroy {
       this.setTasks(this.tasks);
       return false;
     }
-    
+
     this.filteredTasks.toDo = this.tasks.toDo.filter((task: Task) => {
       return task.name.includes(name);
     });
 
-    this.filteredTasks.inProgress = this.tasks.inProgress.filter((task: Task) => {
-      return task.name.includes(name);
-    });
+    this.filteredTasks.inProgress = this.tasks.inProgress.filter(
+      (task: Task) => {
+        return task.name.includes(name);
+      }
+    );
 
     this.filteredTasks.done = this.tasks.done.filter((task: Task) => {
       return task.name.includes(name);
     });
-    
+
     this.tasksChange.next(this.filteredTasks);
     return true;
   }
@@ -216,7 +237,7 @@ export class TasksService implements OnInit, OnDestroy {
       this.tasks.inProgress.sort(this.sortByDateDesc);
       this.tasks.done.sort(this.sortByDateDesc);
     }
-  }  
+  }
 
   private sortByNameAsc(a: Task, b: Task) {
     if (a.name > b.name) {
@@ -245,8 +266,8 @@ export class TasksService implements OnInit, OnDestroy {
   }
 
   private handleError(errorRes: HttpErrorResponse) {
-    let errorMessage = 'Unknown error!'
-    
+    let errorMessage = 'Unknown error!';
+
     if (!errorRes.error) {
       return throwError(errorMessage);
     }
@@ -259,7 +280,7 @@ export class TasksService implements OnInit, OnDestroy {
   private getTasksFieldname(status: string) {
     if (status === 'to do') {
       return this.tasks.toDo;
-    } else if  (status === 'in progress') {
+    } else if (status === 'in progress') {
       return this.tasks.inProgress;
     } else if (status === 'done') {
       return this.tasks.done;

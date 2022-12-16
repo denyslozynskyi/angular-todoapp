@@ -1,12 +1,12 @@
-import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { tap } from "rxjs";
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { tap } from 'rxjs';
 
-import { Dashboard } from "../features/dashboards-list/dashboard.model";
-import { Task } from "../features/tasks-page/task.model";
+import { Dashboard } from '../features/dashboards-list/dashboard.model';
+import { Task } from '../features/tasks-page/task.model';
 
-import { DashboardsService } from "../features/dashboards-list/dashboards.service";
-import { TasksService } from "../features/tasks-page/tasks.service";
+import { DashboardsService } from '../features/dashboards-list/dashboards.service';
+import { TasksService } from '../features/tasks-page/tasks.service';
 
 interface DashboardsResData {
   dashboards: Dashboard[];
@@ -15,15 +15,15 @@ interface DashboardsResData {
 
 interface TasksResData {
   result: {
-    toDo: Task[],
-    inProgress: Task[],
-    done: Task[],
-    archived: Task[]
+    toDo: Task[];
+    inProgress: Task[];
+    done: Task[];
+    archived: Task[];
   };
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DataStorageService {
   constructor(
@@ -33,22 +33,26 @@ export class DataStorageService {
   ) {}
 
   fetchDashboards() {
-    return this.http.get<DashboardsResData>(
-      'https://peaceful-coast-58182.herokuapp.com/api/dashboards'
-    ).pipe(
-      tap(resData => {
-        this.dashboardsService.setDashboards(resData.dashboards);
-      })
-    );
+    return this.http
+      .get<DashboardsResData>(
+        'https://angular-todo-app-server.onrender.com/api/dashboards'
+      )
+      .pipe(
+        tap((resData) => {
+          this.dashboardsService.setDashboards(resData.dashboards);
+        })
+      );
   }
 
   fetchTasks(id: string) {
-    return this.http.get<TasksResData>(
-      'https://peaceful-coast-58182.herokuapp.com/api/tasks/' + id
-    ).pipe(
-      tap(resData => {
-        this.tasksService.setTasks(resData.result);
-      })
-    );
+    return this.http
+      .get<TasksResData>(
+        'https://angular-todo-app-server.onrender.com/api/tasks/' + id
+      )
+      .pipe(
+        tap((resData) => {
+          this.tasksService.setTasks(resData.result);
+        })
+      );
   }
 }

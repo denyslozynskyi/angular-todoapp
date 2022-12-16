@@ -1,11 +1,11 @@
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { Injectable, OnDestroy, OnInit } from "@angular/core";
-import { catchError, Subject, Subscription, tap, throwError } from "rxjs";
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Injectable, OnDestroy, OnInit } from '@angular/core';
+import { catchError, Subject, Subscription, tap, throwError } from 'rxjs';
 
-import { Dashboard } from "./dashboard.model";
+import { Dashboard } from './dashboard.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DashboardsService implements OnInit, OnDestroy {
   private dashboards: Dashboard[] = [];
@@ -14,8 +14,7 @@ export class DashboardsService implements OnInit, OnDestroy {
 
   constructor(private http: HttpClient) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     this.dashboardDeleteSub?.unsubscribe();
@@ -26,36 +25,46 @@ export class DashboardsService implements OnInit, OnDestroy {
   }
 
   createDashboard(name: string, descr: string) {
-    return this.http.post<{message: string, dashboards: Dashboard[]}>(
-      'https://peaceful-coast-58182.herokuapp.com/api/dashboards/create',
-      {
-        name,
-        description: descr
-      }).pipe(
+    return this.http
+      .post<{ message: string; dashboards: Dashboard[] }>(
+        'https://angular-todo-app-server.onrender.com/api/dashboards/create',
+        {
+          name,
+          description: descr,
+        }
+      )
+      .pipe(
         catchError(this.handleError),
-        tap(resData => {
+        tap((resData) => {
           this.setDashboards(resData.dashboards);
         })
       );
   }
 
   deleteDashboard(index: number, dashboard: Dashboard) {
-    const dashboardId = dashboard._id;    
-    this.dashboardDeleteSub = this.http.delete(
-      'https://peaceful-coast-58182.herokuapp.com/api/dashboards/delete/' + dashboardId
-    ).subscribe(() => {
-      this.dashboards.splice(index, 1);
-      this.dashboardsChange.next(this.dashboards.slice());
-    });
+    const dashboardId = dashboard._id;
+    this.dashboardDeleteSub = this.http
+      .delete(
+        'https://angular-todo-app-server.onrender.com/api/dashboards/delete/' +
+          dashboardId
+      )
+      .subscribe(() => {
+        this.dashboards.splice(index, 1);
+        this.dashboardsChange.next(this.dashboards.slice());
+      });
   }
 
   editDashboard(dashboard: Dashboard, index: number, name: string) {
     const dashboardId = dashboard._id;
-    return this.http.put<{message: string}>(
-      'https://peaceful-coast-58182.herokuapp.com/api/dashboards/edit/' + dashboardId,
-      {
-        name
-      }).pipe(
+    return this.http
+      .put<{ message: string }>(
+        'https://angular-todo-app-server.onrender.com/api/dashboards/edit/' +
+          dashboardId,
+        {
+          name,
+        }
+      )
+      .pipe(
         catchError(this.handleError),
         tap(() => {
           this.dashboards[index].name = name;
@@ -74,16 +83,16 @@ export class DashboardsService implements OnInit, OnDestroy {
 
   sortDashboards(sortValue: string, sortDirection: boolean) {
     if (sortDirection && sortValue === 'name') {
-      this.dashboards.sort(this.sortByNameAsc)
+      this.dashboards.sort(this.sortByNameAsc);
     }
     if (!sortDirection && sortValue === 'name') {
-      this.dashboards.sort(this.sortByNameDesc)
+      this.dashboards.sort(this.sortByNameDesc);
     }
     if (sortDirection && sortValue === 'date') {
-      this.dashboards.sort(this.sortByDateAsc)
+      this.dashboards.sort(this.sortByDateAsc);
     }
     if (!sortDirection && sortValue === 'date') {
-      this.dashboards.sort(this.sortByDateDesc)
+      this.dashboards.sort(this.sortByDateDesc);
     }
     this.dashboardsChange.next(this.dashboards);
   }
@@ -115,8 +124,8 @@ export class DashboardsService implements OnInit, OnDestroy {
   }
 
   private handleError(errorRes: HttpErrorResponse) {
-    let errorMessage = 'Unknown error!'
-    
+    let errorMessage = 'Unknown error!';
+
     if (!errorRes.error) {
       return throwError(errorMessage);
     }
