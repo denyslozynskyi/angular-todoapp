@@ -1,12 +1,18 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   @Output('chooseEnglish') chooseEnglish = new EventEmitter();
@@ -15,14 +21,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
   isAuthenticated = false;
   username: string | undefined;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.userSub = this.authService.user
-      .subscribe(user => {
-        this.isAuthenticated = !!user;
-        this.username = user?.name;
-      });
+    this.userSub = this.authService.user.subscribe((user) => {
+      this.isAuthenticated = !!user;
+      this.username = user?.name;
+    });
   }
 
   ngOnDestroy(): void {
@@ -40,5 +45,4 @@ export class HeaderComponent implements OnInit, OnDestroy {
   onChooseUkrainian() {
     this.chooseUkrainian.emit();
   }
-
 }

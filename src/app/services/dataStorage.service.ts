@@ -5,15 +5,15 @@ import { tap } from 'rxjs';
 import { Dashboard } from '../features/dashboards-list/dashboard.model';
 import { Task } from '../features/tasks-page/task.model';
 
-import { DashboardsService } from '../features/dashboards-list/dashboards.service';
-import { TasksService } from '../features/tasks-page/tasks.service';
+import { DashboardsService } from './dashboards.service';
+import { TasksService } from './tasks.service';
 
-interface DashboardsResData {
+export interface DashboardsResData {
   dashboards: Dashboard[];
   message?: string;
 }
 
-interface TasksResData {
+export interface TasksResData {
   result: {
     toDo: Task[];
     inProgress: Task[];

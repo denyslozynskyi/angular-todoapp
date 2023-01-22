@@ -7,17 +7,17 @@ import {
   OnDestroy,
   OnInit,
   Output,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
-import { TasksService } from '../../tasks.service';
+import { TasksService } from '../../../../services/tasks.service';
 
 @Component({
   selector: 'app-task-create',
   templateUrl: './task-create.component.html',
-  styleUrls: ['./task-create.component.css']
+  styleUrls: ['./task-create.component.css'],
 })
 export class TaskCreateComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() dashboardId: string | undefined;
@@ -28,10 +28,9 @@ export class TaskCreateComponent implements OnInit, AfterViewInit, OnDestroy {
   message: string = '';
   isLoading = false;
 
-  constructor(private tasksService: TasksService) { }
+  constructor(private tasksService: TasksService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     this.taskCreateSub?.unsubscribe();
@@ -47,22 +46,25 @@ export class TaskCreateComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     this.isLoading = true;
-    
+
     const name = form.value.name;
 
-    this.taskCreateSub = this.tasksService.createTask(name, this.dashboardId)
-      .subscribe(resData => {
-        this.message = resData.message;
-        this.isLoading = false;
-        setTimeout(() => {
-          this.closeForm.emit();
-        }, 500)
-      }, errorMessage => {
-        this.error = errorMessage;
-        this.isLoading = false;
-      });
-    
+    this.taskCreateSub = this.tasksService
+      .createTask(name, this.dashboardId)
+      .subscribe(
+        (resData) => {
+          this.message = resData.message;
+          this.isLoading = false;
+          setTimeout(() => {
+            this.closeForm.emit();
+          }, 500);
+        },
+        (errorMessage) => {
+          this.error = errorMessage;
+          this.isLoading = false;
+        }
+      );
+
     form.reset();
   }
-
 }

@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
-import { UserService } from './user.service';
+import { UserService } from '../../services/user.service';
 import { UserData } from './userData.model';
 
 @Component({
   selector: 'app-user-page',
   templateUrl: './user-page.component.html',
-  styleUrls: ['./user-page.component.css']
+  styleUrls: ['./user-page.component.css'],
 })
 export class UserPageComponent implements OnInit {
   user: UserData | undefined;
@@ -18,16 +18,15 @@ export class UserPageComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private translate: TranslateService) { }
+    private translate: TranslateService
+  ) {}
 
   ngOnInit(): void {
-    this.userService.fetchUserData()
-      .subscribe();
-    
-    this.userService.userChange
-      .subscribe((user: UserData) => {
-        this.user = user;
-      });
+    this.userService.fetchUserData().subscribe();
+
+    this.userService.userChange.subscribe((user: UserData) => {
+      this.user = user;
+    });
   }
 
   onInfoChange() {
@@ -55,5 +54,4 @@ export class UserPageComponent implements OnInit {
   onModalClose() {
     this.isDelete = false;
   }
-
 }

@@ -7,18 +7,18 @@ import {
   OnDestroy,
   OnInit,
   Output,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 import { Task } from '../../../task.model';
-import { TasksService } from '../../../tasks.service';
+import { TasksService } from '../../../../../services/tasks.service';
 
 @Component({
   selector: 'app-task-edit',
   templateUrl: './task-edit.component.html',
-  styleUrls: ['./task-edit.component.css']
+  styleUrls: ['./task-edit.component.css'],
 })
 export class TaskEditComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() task: Task | undefined;
@@ -30,10 +30,9 @@ export class TaskEditComponent implements OnInit, AfterViewInit, OnDestroy {
   error: string = '';
   message: string = '';
 
-  constructor(private tasksService: TasksService) { }
+  constructor(private tasksService: TasksService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     this.taskEditSub?.unsubscribe();
@@ -48,7 +47,7 @@ export class TaskEditComponent implements OnInit, AfterViewInit, OnDestroy {
       return;
     }
     this.isLoading = true;
-    
+
     const name = form.value.name;
 
     if (this.task !== undefined) {
@@ -62,19 +61,23 @@ export class TaskEditComponent implements OnInit, AfterViewInit, OnDestroy {
         return;
       }
 
-      this.taskEditSub = this.tasksService.editTask(this.task, this.index, name, this.task.status)
-        .subscribe(resData => {
-          this.message = resData.message;
-          this.isLoading = false;
-          setTimeout(() => {
-            this.closeForm.emit();
-          }, 500)
-        }, errorMessage => {
-          this.error = errorMessage;
-          this.isLoading = false;
-        });
+      this.taskEditSub = this.tasksService
+        .editTask(this.task, this.index, name, this.task.status)
+        .subscribe(
+          (resData) => {
+            this.message = resData.message;
+            this.isLoading = false;
+            setTimeout(() => {
+              this.closeForm.emit();
+            }, 500);
+          },
+          (errorMessage) => {
+            this.error = errorMessage;
+            this.isLoading = false;
+          }
+        );
     }
-    
+
     form.reset();
   }
 }

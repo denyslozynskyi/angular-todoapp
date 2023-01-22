@@ -3,12 +3,12 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { Task } from '../../task.model';
-import { TasksService } from '../../tasks.service';
+import { TasksService } from '../../../../services/tasks.service';
 
 @Component({
   selector: 'app-task-item',
   templateUrl: './task-item.component.html',
-  styleUrls: ['./task-item.component.css']
+  styleUrls: ['./task-item.component.css'],
 })
 export class TaskItemComponent implements OnInit, OnDestroy {
   private taskItemParamsSub: Subscription | undefined;
@@ -17,7 +17,7 @@ export class TaskItemComponent implements OnInit, OnDestroy {
   taskId: string = '';
   taskIndex: number = 0;
   task: Task | undefined;
-  error: string = ''
+  error: string = '';
   isLoading = false;
   isEdit = false;
   isAddComment = false;
@@ -25,28 +25,31 @@ export class TaskItemComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private tasksService: TasksService,
-    private router: Router) { }
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.isLoading = true;
-    this.taskItemParamsSub = this.route.params
-      .subscribe((params: Params) => {
-        this.taskId = params['id'];
-        this.taskIndex = +params['index'];
-      });    
-    this.getTaskSub = this.tasksService.getTask(this.taskId)
-      .subscribe(resData => {
+    this.taskItemParamsSub = this.route.params.subscribe((params: Params) => {
+      this.taskId = params['id'];
+      this.taskIndex = +params['index'];
+    });
+    this.getTaskSub = this.tasksService.getTask(this.taskId).subscribe(
+      (resData) => {
         resData.createdDate = new Date(resData.createdDate);
         this.task = resData;
         this.isLoading = false;
-      }, errorMessage => {
+      },
+      (errorMessage) => {
         this.error = errorMessage;
         this.isLoading = false;
-      });
-    this.taskChangeSub = this.tasksService.taskChange
-      .subscribe((task: Task) => {
+      }
+    );
+    this.taskChangeSub = this.tasksService.taskChange.subscribe(
+      (task: Task) => {
         this.task = task;
-      })
+      }
+    );
   }
 
   ngOnDestroy(): void {
@@ -64,10 +67,14 @@ export class TaskItemComponent implements OnInit, OnDestroy {
     this.isAddComment = !this.isAddComment;
     this.isEdit = false;
   }
-  
+
   onDeleteTask() {
     if (this.taskId && this.task?.status) {
-      this.tasksService.deleteTask(this.taskIndex, this.taskId, this.task.status);
+      this.tasksService.deleteTask(
+        this.taskIndex,
+        this.taskId,
+        this.task.status
+      );
       this.router.navigate(['.'], { relativeTo: this.route.parent });
     }
   }
@@ -91,5 +98,4 @@ export class TaskItemComponent implements OnInit, OnDestroy {
     this.isEdit = false;
     this.isAddComment = false;
   }
-
 }

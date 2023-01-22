@@ -1,20 +1,18 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Injectable, OnDestroy, OnInit } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { catchError, Subject, Subscription, tap, throwError } from 'rxjs';
 
-import { Dashboard } from './dashboard.model';
+import { Dashboard } from '../features/dashboards-list/dashboard.model';
 
 @Injectable({
   providedIn: 'root',
 })
-export class DashboardsService implements OnInit, OnDestroy {
+export class DashboardsService implements OnDestroy {
   private dashboards: Dashboard[] = [];
   private dashboardDeleteSub: Subscription | undefined;
   dashboardsChange = new Subject<Dashboard[]>();
 
   constructor(private http: HttpClient) {}
-
-  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     this.dashboardDeleteSub?.unsubscribe();

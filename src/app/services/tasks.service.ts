@@ -1,8 +1,8 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Injectable, OnDestroy, OnInit } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { catchError, Subject, Subscription, tap, throwError } from 'rxjs';
 
-import { Task } from './task.model';
+import { Task } from '../features/tasks-page/task.model';
 
 export interface Tasks {
   toDo: Task[];
@@ -14,7 +14,7 @@ export interface Tasks {
 @Injectable({
   providedIn: 'root',
 })
-export class TasksService implements OnInit, OnDestroy {
+export class TasksService implements OnDestroy {
   private tasks: Tasks = {
     toDo: [],
     inProgress: [],
@@ -33,8 +33,6 @@ export class TasksService implements OnInit, OnDestroy {
   taskChange = new Subject<Task>();
 
   constructor(private http: HttpClient) {}
-
-  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     this.taskStatusChangeSub?.unsubscribe();
@@ -237,6 +235,8 @@ export class TasksService implements OnInit, OnDestroy {
       this.tasks.inProgress.sort(this.sortByDateDesc);
       this.tasks.done.sort(this.sortByDateDesc);
     }
+
+    this.tasksChange.next(this.tasks);
   }
 
   private sortByNameAsc(a: Task, b: Task) {

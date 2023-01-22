@@ -1,4 +1,8 @@
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateStore } from '@ngx-translate/core';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 import { DashboardItemComponent } from './dashboard-item.component';
 
@@ -8,9 +12,10 @@ describe('DashboardItemComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DashboardItemComponent ]
-    })
-    .compileComponents();
+      declarations: [DashboardItemComponent],
+      imports: [RouterTestingModule, HttpClientModule, SharedModule],
+      providers: [TranslateStore],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(DashboardItemComponent);
     component = fixture.componentInstance;

@@ -1,4 +1,7 @@
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TranslateStore } from '@ngx-translate/core';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 import { HeaderComponent } from './header.component';
 
@@ -8,9 +11,10 @@ describe('HeaderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HeaderComponent ]
-    })
-    .compileComponents();
+      declarations: [HeaderComponent],
+      imports: [HttpClientModule, SharedModule],
+      providers: [TranslateStore],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(HeaderComponent);
     component = fixture.componentInstance;

@@ -7,23 +7,25 @@ import {
   OnDestroy,
   OnInit,
   Output,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { Dashboard } from 'src/app/features/dashboards-list/dashboard.model';
 import { UserData } from 'src/app/features/user-page/userData.model';
 
-import { DashboardsService } from 'src/app/features/dashboards-list/dashboards.service';
-import { UserService } from 'src/app/features/user-page/user.service';
-import { AuthService } from 'src/app/features/auth/auth.service';
+import { DashboardsService } from 'src/app/services/dashboards.service';
+import { UserService } from 'src/app/services/user.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-delete-confirm',
   templateUrl: './delete-confirm.component.html',
-  styleUrls: ['./delete-confirm.component.css']
+  styleUrls: ['./delete-confirm.component.css'],
 })
-export class DeleteConfirmComponent implements OnInit, AfterViewInit, OnDestroy {
+export class DeleteConfirmComponent
+  implements OnInit, AfterViewInit, OnDestroy
+{
   @Input() dashboard: Dashboard | undefined;
   @Input() dashboardIndex: number | undefined;
   @Input() user: UserData | undefined;
@@ -35,12 +37,12 @@ export class DeleteConfirmComponent implements OnInit, AfterViewInit, OnDestroy 
   message: string = '';
 
   constructor(
-      private dashboardsService: DashboardsService,
-      private userService: UserService,
-      private authService: AuthService) { }
+    private dashboardsService: DashboardsService,
+    private userService: UserService,
+    private authService: AuthService
+  ) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     this.deleteUserSub?.unsubscribe();
@@ -60,7 +62,10 @@ export class DeleteConfirmComponent implements OnInit, AfterViewInit, OnDestroy 
       return;
     }
     if (this.dashboardIndex !== undefined && this.dashboard !== undefined) {
-      this.dashboardsService.deleteDashboard(this.dashboardIndex, this.dashboard);
+      this.dashboardsService.deleteDashboard(
+        this.dashboardIndex,
+        this.dashboard
+      );
       this.closeModal.emit();
     }
   }
@@ -71,9 +76,11 @@ export class DeleteConfirmComponent implements OnInit, AfterViewInit, OnDestroy 
       return;
     }
     if (this.user !== undefined) {
-      this.deleteUserSub = this.userService.deleteUser()
-        .subscribe(resData => {
-          this.message = resData.message + '. App will close automatically in 5 seconds.';
+      this.deleteUserSub = this.userService
+        .deleteUser()
+        .subscribe((resData) => {
+          this.message =
+            resData.message + '. App will close automatically in 5 seconds.';
         });
       setTimeout(() => {
         this.authService.logout();
@@ -88,5 +95,4 @@ export class DeleteConfirmComponent implements OnInit, AfterViewInit, OnDestroy 
       this.error = '';
     }, 1000);
   }
-
 }

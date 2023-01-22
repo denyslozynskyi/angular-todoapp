@@ -1,60 +1,101 @@
 <div class="auth-page">
   <div *ngIf="isLoading" style="text-align: center">
-      <app-loading-spinner></app-loading-spinner>
+    <app-loading-spinner></app-loading-spinner>
   </div>
-  <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
+  <form
+    #authForm="ngForm"
+    (ngSubmit)="onSubmit(authForm)"
+    data-testId="auth-form"
+  >
     <div class="auth-inputs" *ngIf="registerMode">
-      <label for="name">{{ 'COMMON.LABEL.NAME' | translate }}</label>
+      <label for="name">{{ "COMMON.LABEL.NAME" | translate }}</label>
       <input
-          type="text"
-          id="name"
-          ngModel
-          name="name"
-          required
-          #authName="ngModel">
-      <span *ngIf="!authName.valid && authName.touched" class="auth-input-error">{{ 'COMMON.ERROR.NAME_INPUT' | translate }}</span>
+        type="text"
+        id="name"
+        ngModel
+        name="name"
+        required
+        #authName="ngModel"
+        data-testId="name-auth"
+      />
+      <span
+        *ngIf="!authName.valid && authName.touched"
+        class="auth-input-error"
+        >{{ "COMMON.ERROR.NAME_INPUT" | translate }}</span
+      >
     </div>
     <div class="auth-inputs">
-        <label for="email">{{ 'COMMON.LABEL.EMAIL' | translate }}</label>
-        <input
-          type="email"
-          id="email"
-          ngModel
-          name="email"
-          required
-          email
-          #authEmail="ngModel">
-        <span *ngIf="!authEmail.valid && authEmail.touched" class="auth-input-error">{{ 'COMMON.ERROR.EMAIL_INPUT' | translate }}</span>
+      <label for="email">{{ "COMMON.LABEL.EMAIL" | translate }}</label>
+      <input
+        type="email"
+        id="email"
+        ngModel
+        name="email"
+        required
+        email
+        #authEmail="ngModel"
+        data-testId="email-auth"
+      />
+      <span
+        *ngIf="!authEmail.valid && authEmail.touched"
+        class="auth-input-error"
+        >{{ "COMMON.ERROR.EMAIL_INPUT" | translate }}</span
+      >
     </div>
     <div class="auth-inputs">
-        <label for="password">{{ 'COMMON.LABEL.PASSWORD' | translate }}</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          ngModel
-          required
-          minlength="6"
-          #authPassword="ngModel">
-        <span *ngIf="!authPassword.valid && authPassword.touched" class="auth-input-error">{{ 'COMMON.ERROR.PASSWORD_INPUT' | translate }}</span>
+      <label for="password">{{ "COMMON.LABEL.PASSWORD" | translate }}</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        ngModel
+        required
+        minlength="6"
+        #authPassword="ngModel"
+        data-testId="password-auth"
+      />
+      <span
+        *ngIf="!authPassword.valid && authPassword.touched"
+        class="auth-input-error"
+        >{{ "COMMON.ERROR.PASSWORD_INPUT" | translate }}</span
+      >
     </div>
     <div class="form-buttons">
       <button
         type="submit"
         class="btn auth-btn"
-        [disabled]="!authForm.valid">{{ registerMode ? ('AUTH.BUTTONS.SIGNUP' | translate) : ('AUTH.BUTTONS.LOGIN' | translate) }}</button>
+        [disabled]="!authForm.valid"
+        data-testId="auth-submit"
+      >
+        {{
+          registerMode
+            ? ("AUTH.BUTTONS.SIGNUP" | translate)
+            : ("AUTH.BUTTONS.LOGIN" | translate)
+        }}
+      </button>
       |
       <button
         type="button"
         class="btn auth-btn"
-        (click)="onChangeForm()">{{ registerMode ? ('AUTH.BUTTONS.SWITCH_TO.LOGIN' | translate) : ('AUTH.BUTTONS.SWITCH_TO.SIGNUP' | translate) }}</button>
+        (click)="onChangeForm()"
+        data-testId="auth-toggle"
+      >
+        {{
+          registerMode
+            ? ("AUTH.BUTTONS.SWITCH_TO.LOGIN" | translate)
+            : ("AUTH.BUTTONS.SWITCH_TO.SIGNUP" | translate)
+        }}
+      </button>
     </div>
     <button
       *ngIf="!registerMode"
       type="button"
       class="btn auth-btn forgot-password"
       [disabled]="!authEmail.valid"
-      (click)="onForgotPassword(authForm)">{{ 'AUTH.BUTTONS.FORGOT_PASSWORD' | translate }}</button>
+      (click)="onForgotPassword(authForm)"
+    >
+      {{ "AUTH.BUTTONS.FORGOT_PASSWORD" | translate }}
+    </button>
   </form>
   <div class="auth-error" *ngIf="error">
     <p>{{ error }}</p>

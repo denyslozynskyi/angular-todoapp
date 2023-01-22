@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
-import { User } from './user.model';
+import { User } from '../features/auth/user.model';
 
 export interface AuthResponceData {
   name: string;

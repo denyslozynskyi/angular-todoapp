@@ -3,9 +3,9 @@ import { Injectable, OnInit } from '@angular/core';
 import { Subject, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
-import { UserData } from './userData.model';
+import { UserData } from '../features/user-page/userData.model';
 
-interface UserResData {
+export interface UserResData {
   user: {
     _id: string;
     name: string;

@@ -1,20 +1,19 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Task } from '../task.model';
-import { TasksService } from '../tasks.service';
+import { TasksService } from '../../../services/tasks.service';
 
 @Component({
   selector: 'app-tasks-archive',
   templateUrl: './tasks-archive.component.html',
-  styleUrls: ['./tasks-archive.component.css']
+  styleUrls: ['./tasks-archive.component.css'],
 })
 export class TasksArchiveComponent implements OnInit {
   @Input() tasks: Task[] | undefined;
   @Output('closeArchive') closeArchive = new EventEmitter();
 
-  constructor(private tasksService: TasksService) { }
+  constructor(private tasksService: TasksService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   onCloseArchive() {
     this.closeArchive.emit();
@@ -37,5 +36,4 @@ export class TasksArchiveComponent implements OnInit {
       }, 2000);
     }
   }
-
 }

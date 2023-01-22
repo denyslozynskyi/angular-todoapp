@@ -3,12 +3,12 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 
-import { AuthResponceData, AuthService } from './auth.service';
+import { AuthResponceData, AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
-  styleUrls: ['./auth.component.css']
+  styleUrls: ['./auth.component.css'],
 })
 export class AuthComponent implements OnInit, OnDestroy {
   private authSub: Subscription | undefined;
@@ -18,12 +18,9 @@ export class AuthComponent implements OnInit, OnDestroy {
   error: string = '';
   message: string | undefined = '';
 
-  constructor(
-    private router: Router,
-    private authService: AuthService) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     this.authSub?.unsubscribe();
@@ -35,8 +32,9 @@ export class AuthComponent implements OnInit, OnDestroy {
   }
 
   onForgotPassword(form: NgForm) {
-    this.forgotPasswordSub = this.authService.forgotPassword(form.value.email)
-      .subscribe(resData => {
+    this.forgotPasswordSub = this.authService
+      .forgotPassword(form.value.email)
+      .subscribe((resData) => {
         this.message = resData.message;
         form.reset();
         this.clearErrorsAndMessages();
@@ -47,7 +45,7 @@ export class AuthComponent implements OnInit, OnDestroy {
     if (!form.valid) {
       return;
     }
-    
+
     const name = form.value.name;
     const email = form.value.email;
     const password = form.value.password;
@@ -60,29 +58,31 @@ export class AuthComponent implements OnInit, OnDestroy {
     } else {
       authObs = this.authService.login(email, password);
     }
-    
-    this.authSub = authObs.subscribe(resData => {
-      if (this.registerMode) {
-        this.message = resData.message;
-        this.registerMode = false;
+
+    this.authSub = authObs.subscribe(
+      (resData) => {
+        if (this.registerMode) {
+          this.message = resData.message;
+          this.registerMode = false;
+          this.clearErrorsAndMessages();
+        } else {
+          form.reset();
+          this.router.navigate(['/dashboards']);
+        }
+        this.isLoading = false;
+      },
+      (errorMessage) => {
+        this.error = errorMessage;
         this.clearErrorsAndMessages();
-      } else {
-        form.reset();
-        this.router.navigate(['/dashboards']);
+        this.isLoading = false;
       }
-      this.isLoading = false;
-    }, errorMessage => {
-      this.error = errorMessage;
-      this.clearErrorsAndMessages();
-      this.isLoading = false;
-    });
+    );
   }
 
   private clearErrorsAndMessages() {
     setTimeout(() => {
       this.error = '';
       this.message = '';
-    }, 2000)
+    }, 2000);
   }
-
 }

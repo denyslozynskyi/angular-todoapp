@@ -7,20 +7,22 @@ import {
   OnDestroy,
   OnInit,
   Output,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 import { Task } from '../../../task.model';
-import { TasksService } from '../../../tasks.service';
+import { TasksService } from '../../../../../services/tasks.service';
 
 @Component({
   selector: 'app-task-add-comment',
   templateUrl: './task-add-comment.component.html',
-  styleUrls: ['./task-add-comment.component.css']
+  styleUrls: ['./task-add-comment.component.css'],
 })
-export class TaskAddCommentComponent implements OnInit, AfterViewInit, OnDestroy {
+export class TaskAddCommentComponent
+  implements OnInit, AfterViewInit, OnDestroy
+{
   @Input() task: Task | undefined;
   @Output('closeForm') closeForm = new EventEmitter();
   @ViewChild('textInput') textInput: ElementRef<HTMLInputElement> | undefined;
@@ -29,10 +31,9 @@ export class TaskAddCommentComponent implements OnInit, AfterViewInit, OnDestroy
   error: string = '';
   message: string = '';
 
-  constructor(private tasksService: TasksService) { }
+  constructor(private tasksService: TasksService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     this.addCommentSub?.unsubscribe();
@@ -47,7 +48,7 @@ export class TaskAddCommentComponent implements OnInit, AfterViewInit, OnDestroy
       return;
     }
     this.isLoading = true;
-    
+
     const commentText = form.value.commentText;
 
     if (this.task !== undefined) {
@@ -60,17 +61,20 @@ export class TaskAddCommentComponent implements OnInit, AfterViewInit, OnDestroy
         return;
       }
 
-      this.addCommentSub = this.tasksService.addComment(this.task, commentText)
-        .subscribe(resData => {
-          this.isLoading = false;
-          this.closeForm.emit();
-        }, errorMessage => {
-          this.error = errorMessage;
-          this.isLoading = false;
-        });
+      this.addCommentSub = this.tasksService
+        .addComment(this.task, commentText)
+        .subscribe(
+          (resData) => {
+            this.isLoading = false;
+            this.closeForm.emit();
+          },
+          (errorMessage) => {
+            this.error = errorMessage;
+            this.isLoading = false;
+          }
+        );
     }
-    
+
     form.reset();
   }
-
 }

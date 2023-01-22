@@ -3,8 +3,8 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { Dashboard } from 'src/app/features/dashboards-list/dashboard.model';
-import { DashboardsService } from 'src/app/features/dashboards-list/dashboards.service';
-import { Tasks, TasksService } from 'src/app/features/tasks-page/tasks.service';
+import { DashboardsService } from 'src/app/services/dashboards.service';
+import { Tasks, TasksService } from 'src/app/services/tasks.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -28,10 +28,9 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.toolbarParamsSub = this.route.params
-      .subscribe((params: Params) => {
-        this.dashboardName = params['name'];
-      });
+    this.toolbarParamsSub = this.route.params.subscribe((params: Params) => {
+      this.dashboardName = params['name'];
+    });
   }
 
   ngOnDestroy(): void {
@@ -39,12 +38,15 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   }
 
   onFilter() {
-    this.filtered = this.tasksService.filterTasks(this.name);    
+    this.filtered = this.tasksService.filterTasks(this.name);
   }
 
   onSort() {
     if (this.dashboards) {
-      this.dashboardsService.sortDashboards(this.sortingSelect, this.isAscActive);
+      this.dashboardsService.sortDashboards(
+        this.sortingSelect,
+        this.isAscActive
+      );
     } else if (this.tasks) {
       this.tasksService.sortTasks(this.sortingSelect, this.isAscActive);
     }
@@ -56,7 +58,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   }
 
   onDescSelect() {
-    this.isAscActive = false;;
+    this.isAscActive = false;
     this.onSort();
   }
 }

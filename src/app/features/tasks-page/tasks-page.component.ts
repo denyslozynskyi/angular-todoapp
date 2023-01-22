@@ -1,15 +1,15 @@
-import { Component, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Subscription } from 'rxjs';
 
-import { DataStorageService } from 'src/app/shared/dataStorage.service';
-import { Tasks, TasksService } from './tasks.service';
+import { DataStorageService } from 'src/app/services/dataStorage.service';
+import { Tasks, TasksService } from '../../services/tasks.service';
 
 @Component({
   selector: 'app-tasks-page',
   templateUrl: './tasks-page.component.html',
-  styleUrls: ['./tasks-page.component.css']
+  styleUrls: ['./tasks-page.component.css'],
 })
 export class TasksPageComponent implements OnInit, OnDestroy {
   private tasksPageParamsSub: Subscription | undefined;
@@ -23,21 +23,23 @@ export class TasksPageComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private tasksService: TasksService,
-    private dataStorageService: DataStorageService) { }
+    private dataStorageService: DataStorageService
+  ) {}
 
   ngOnInit(): void {
     this.isLoading = true;
-    this.tasksPageParamsSub = this.route.params
-      .subscribe((params: Params) => {
-        this.id = params['id'];
-      });
-    this.tasksChangeSub = this.tasksService.tasksChange
-      .subscribe((tasks: Tasks) => {
+    this.tasksPageParamsSub = this.route.params.subscribe((params: Params) => {
+      this.id = params['id'];
+    });
+    this.tasksChangeSub = this.tasksService.tasksChange.subscribe(
+      (tasks: Tasks) => {
         this.tasks = tasks;
         this.isLoading = false;
-      });
-    this.fetchTasksSub = this.dataStorageService.fetchTasks(this.id)
-      .subscribe(tasks => {
+      }
+    );
+    this.fetchTasksSub = this.dataStorageService
+      .fetchTasks(this.id)
+      .subscribe((tasks) => {
         this.tasks = tasks.result;
         this.isLoading = false;
       });
@@ -54,7 +56,7 @@ export class TasksPageComponent implements OnInit, OnDestroy {
       event.previousContainer.data,
       event.container.data,
       event.previousIndex,
-      event.currentIndex,
+      event.currentIndex
     );
     const task = event.container.data[event.container.data.length - 1];
     const newStatus = event.container.element.nativeElement.attributes[1].value;
@@ -68,5 +70,4 @@ export class TasksPageComponent implements OnInit, OnDestroy {
   onCloseArchive() {
     this.isArchiveOpen = false;
   }
-
 }
